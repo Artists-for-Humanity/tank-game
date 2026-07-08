@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody rigidBody;
     public GameObject turretAxis;
-    public GameObject barrelAxis;
+    //public GameObject barrelAxis;
 
     public Vector2 turretRotationLimit = new Vector2(-135, 135);
-    public Vector2 barrelRotationLimit = new Vector2(-45, 45);
+    //public Vector2 barrelRotationLimit = new Vector2(-45, 45);
 
     public float baseRotationSpeed = 5;
     public float turretRotationSpeed = 5;
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
             turretAxis.transform.rotation = Quaternion.Slerp(turretAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
             turretAxis.transform.localEulerAngles = new Vector3(0, turretAxis.transform.localEulerAngles.y, 0);
             
-            barrelAxis.transform.LookAt(hit.point);
-            barrelAxis.transform.localEulerAngles = new Vector3(barrelAxis.transform.localEulerAngles.x, 0, 0);
+            //barrelAxis.transform.LookAt(hit.point);
+            //barrelAxis.transform.localEulerAngles = new Vector3(barrelAxis.transform.localEulerAngles.x, 0, 0);
         }
     }
 }
