@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 37056594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8900001, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.8900001, z: -0.02}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -747,8 +747,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 1, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.5, y: 0.5, z: 3}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!23 &1327053537
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -826,7 +826,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327053534}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -863,6 +863,7 @@ MonoBehaviour:
   baseRotationSpeed: 5
   turretRotationSpeed: 5
   currentCamera: {fileID: 330585545}
+  speed: 100
 --- !u!114 &1327053542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,15 +877,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1327053540}
-  damping: 0
-  springCoefficient: 100
+  damping: 19400
+  springCoefficient: 19000
   mu: 0.9
-  length: 2
+  length: 0.5
   wheelPositions:
   - {x: -2, y: 0, z: -2}
   - {x: 2, y: 0, z: -2}
   - {x: -2, y: 0, z: 2}
   - {x: 2, y: 0, z: 2}
+  - {x: 2, y: 0, z: 1}
+  - {x: 2, y: 0, z: 0}
+  - {x: 2, y: 0, z: -1}
+  - {x: -2, y: 0, z: 1}
+  - {x: -2, y: 0, z: 0}
+  - {x: -2, y: 0, z: -1}
 --- !u!1 &1624580632
 GameObject:
   m_ObjectHideFlags: 0
