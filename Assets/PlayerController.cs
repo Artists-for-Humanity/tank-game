@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
 
+    public float speed = 100;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
         Vector2 moveDirection = moveAction.ReadValue<Vector2>();
 
         if (moveDirection != Vector2.zero) {
-            rigidBody.linearVelocity += transform.forward * Time.deltaTime * 20 * moveDirection.magnitude;
+            rigidBody.AddForce(transform.forward * Time.deltaTime * speed * rigidBody.mass);
             //(cameraForward * moveDirection.y + cameraRight * moveDirection.x) * Time.deltaTime * 10;
             
             Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;

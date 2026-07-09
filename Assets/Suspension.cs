@@ -15,12 +15,12 @@ public class Suspension : MonoBehaviour
 
     public float length = 10;
     public Vector3[] wheelPositions;
-    
-
+    private float[] lengths; 
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        lengths = new float[wheelPositions.Length];
 
     }
 
@@ -35,22 +35,43 @@ public class Suspension : MonoBehaviour
             RaycastHit hit;
             Debug.DrawRay(worldPosition, -rigidBody.transform.up * length);
             
-            if (Physics.Raycast(worldPosition, -rigidBody.transform.up, out hit, length))
-            {
-                
-                Vector3 goal = worldPosition - rigidBody.transform.up * length;
+            Vector3 goal = worldPosition - rigidBody.transform.up * length;
 
+
+            bool detectGround = Physics.Raycast(worldPosition, -rigidBody.transform.up, out hit, length);
+
+
+            if (detectGround)
+            {
+                Debug.DrawRay(hit.point, Vector3.up * 0.1f);
+            
+                Vector3 springDirection = (goal - worldPosition).normalized;
+                float currentLength = (worldPosition - hit.point).magnitude;
+
+                float velocityAlongSpring = lengths[i] - currentLength;
+                
                 float displacement = (goal - hit.point).magnitude;
-                float springForceStrength = springCoefficient * displacement - damping * rigidBody.linearVelocity.magnitude;
-                Vector3 springDirection = -(goal - hit.point).normalized;
+
+                float springForceStrength = springCoefficient * displacement - damping * -velocityAlongSpring;
 
                 normalForce += springForceStrength;
                 //wheels[i].GetComponent<Rigidbody>().AddForceAtPosition(-springDirection * force * Time.deltaTime, worldPosition);
-                rigidBody.AddForceAtPosition(springDirection * springForceStrength * Time.deltaTime, worldPosition);
+                rigidBody.AddForceAtPosition(-springDirection * springForceStrength * Time.deltaTime, worldPosition);
             }
+
+
+            if (detectGround)
+            {
+                lengths[i] = (hit.point - worldPosition).magnitude;
+            } else
+            {
+                lengths[i] = length;
+            }
+
 
             //wheels[i].transform.localPosition = new Vector3(wheelPositions[i].x, wheels[i].transform.localPosition.y, wheelPositions[i].z);
         }
+        
         float frictionForce = mu * normalForce;
         Vector3 localVelocity = transform.InverseTransformDirection(rigidBody.linearVelocity);
         localVelocity.z = 0;
@@ -58,4 +79,5 @@ public class Suspension : MonoBehaviour
         Vector3 lateralVelocity = transform.TransformDirection(localVelocity);
         rigidBody.AddForce(-lateralVelocity * frictionForce * Time.deltaTime);
     }
+
 }
