@@ -1,9 +1,11 @@
-using System.Collections;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Scripting.APIUpdating;
+using Unity.Mathematics;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
+using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,20 +20,26 @@ public class PlayerController : MonoBehaviour
     public float turretRotationSpeed = 5;
 
     public Camera currentCamera;
+    public GameObject shootPosition;
 
     private InputAction moveAction;
+    private InputAction attackAction;
+    private float attackCooldown = 0.0f;
 
     public float speed = 100;
+    public GameObject projectile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
+        attackAction = InputSystem.actions.FindAction("Attack");
     }
 
     // Update is called once per frame
     void Update()
     {
+        attackCooldown -= Time.deltaTime;
 
 
         Vector3 cameraForward = Vector3.Scale(currentCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -61,6 +69,25 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
+            bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
+            if (isAttacking && attackCooldown <= 0.0f)
+            {
+                attackCooldown = 1.0f;
+
+                GameObject bullet = Instantiate(projectile);
+                bullet.transform.position = shootPosition.transform.position;
+                Projectile projectileScript = bullet.GetComponent<Projectile>();
+                Vector3 bulletDirection = (hit.point - shootPosition.transform.position).normalized;
+
+                projectileScript.Shoot(bulletDirection * 1000.0f, 3.0f);
+                projectileScript.onHit += (RaycastHit? hit) =>
+                {
+                    Destroy(bullet);
+                };
+
+            }
+
+
             Vector3 turretDirection = hit.point - turretAxis.transform.position;
             turretDirection.y = 0;
             turretDirection.Normalize();
