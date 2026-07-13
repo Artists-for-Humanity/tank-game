@@ -48,12 +48,9 @@ public class Suspension : MonoBehaviour
 
                 Vector3 springDirection = (goal - worldPosition).normalized;
                 float currentLength = (worldPosition - hit.point).magnitude;
-
-                float velocityAlongSpring = lengths[i] - currentLength;
-
+                float velocityAlongSpring = currentLength - lengths[i];
                 float displacement = (goal - hit.point).magnitude;
-
-                float springForceStrength = springCoefficient * displacement - damping * -velocityAlongSpring;
+                float springForceStrength = springCoefficient * displacement - damping * velocityAlongSpring;
 
                 normalForce += springForceStrength;
                 //wheels[i].GetComponent<Rigidbody>().AddForceAtPosition(-springDirection * force * Time.deltaTime, worldPosition);
