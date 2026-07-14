@@ -18,6 +18,7 @@ public class Suspension : MonoBehaviour
     public Vector3[] wheelPositions;
     private float[] lengths;
 
+    public bool isGrounded = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +30,7 @@ public class Suspension : MonoBehaviour
     void Update()
     {
         float normalForce = rigidBody.mass * 9.81f;
-        bool isGrounded = false;
+        isGrounded = true;
         for (int i = 0; i < wheelPositions.Length; i++)
         {
             Vector3 worldPosition = rigidBody.transform.TransformPoint(wheelPositions[i]);

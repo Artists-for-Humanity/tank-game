@@ -64,8 +64,7 @@ public class CameraController : MonoBehaviour
         }
 
         float zoomDirectionY = zoomCameraAction.ReadValue<float>();
-        print(zoomDirectionY);
-        zoom -= zoomDirectionY * Time.deltaTime;
+        zoom -= zoomDirectionY * Time.deltaTime * zoomSensitivity;
 
     }
     

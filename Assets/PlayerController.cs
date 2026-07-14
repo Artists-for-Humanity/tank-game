@@ -49,19 +49,16 @@ public class PlayerController : MonoBehaviour
 
         if (moveDirection != Vector2.zero)
         {
-            bool isGrounded = Physics.Raycast(transform.position, -transform.up, 1);
+            bool isGrounded = GetComponent<Suspension>().isGrounded;
+            
             if (isGrounded)
             {
                 rigidBody.linearVelocity += transform.forward * Time.deltaTime * speed;
             }
 
-            //(cameraForward * moveDirection.y + cameraRight * moveDirection.x) * Time.deltaTime * 10;
-
             Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
             Quaternion baseRotationTarget = Quaternion.LookRotation(baseDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
-
-
         }
 
         RaycastHit hit;
