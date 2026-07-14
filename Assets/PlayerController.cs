@@ -1,3 +1,5 @@
+
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Scripting.APIUpdating;
@@ -6,15 +8,13 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody rigidBody;
+    private Rigidbody rigidBody;
     public GameObject turretAxis;
     //public GameObject barrelAxis;
-
-    public Vector2 turretRotationLimit = new Vector2(-135, 135);
-    //public Vector2 barrelRotationLimit = new Vector2(-45, 45);
 
     public float baseRotationSpeed = 5;
     public float turretRotationSpeed = 5;
@@ -24,22 +24,31 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction attackAction;
-    private float attackCooldown = 0.0f;
+    private float attackTimer = 0.0f;
+    public float attackCooldown = 0.1f;
 
     public float speed = 100;
     public GameObject projectile;
 
+    private HealthComponent healthComponent;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
+
+        rigidBody = GetComponent<Rigidbody>();
+
+        healthComponent = GetComponent<HealthComponent>();
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        attackCooldown -= Time.deltaTime;
+        attackTimer -= Time.deltaTime;
 
 
         Vector3 cameraForward = Vector3.Scale(currentCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -50,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (moveDirection != Vector2.zero)
         {
             bool isGrounded = GetComponent<Suspension>().isGrounded;
-            
+
             if (isGrounded)
             {
                 rigidBody.linearVelocity += transform.forward * Time.deltaTime * speed;
@@ -61,37 +70,50 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
         }
 
-        RaycastHit hit;
+
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit))
+        bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
+        if (isAttacking && attackTimer <= 0.0f)
         {
-            bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
-            if (isAttacking && attackCooldown <= 0.0f)
-            {
-                attackCooldown = 1.0f;
+            attackTimer = attackCooldown;
 
-                GameObject bullet = Instantiate(projectile);
-                bullet.transform.position = shootPosition.transform.position;
-                Projectile projectileScript = bullet.GetComponent<Projectile>();
-                Vector3 bulletDirection = (hit.point - shootPosition.transform.position).normalized;
-
-                projectileScript.Shoot(bulletDirection * 1000.0f, 3.0f);
-                projectileScript.onHit += (RaycastHit? hit) =>
-                {
-                    Destroy(bullet);
-                };
-
-            }
-
-
-            Vector3 turretDirection = hit.point - turretAxis.transform.position;
-            turretDirection.y = 0;
-            turretDirection.Normalize();
-
-            Quaternion rotationTarget = Quaternion.LookRotation(turretDirection);
-            turretAxis.transform.rotation = Quaternion.Slerp(turretAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
-            turretAxis.transform.localEulerAngles = new Vector3(0, turretAxis.transform.localEulerAngles.y, 0);
+            ShootGun();
         }
+
+
+        Vector3 turretDirection = ray.direction;
+        turretDirection.y = 0;
+        turretDirection.Normalize();
+
+        Quaternion rotationTarget = Quaternion.LookRotation(turretDirection);
+        turretAxis.transform.rotation = Quaternion.Slerp(turretAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
+        turretAxis.transform.localEulerAngles = new Vector3(0, turretAxis.transform.localEulerAngles.y, 0);
+
+    }
+
+    void ShootGun()
+    {
+        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
+
+        GameObject bullet = Instantiate(projectile);
+        bullet.transform.position = shootPosition.transform.position;
+        Projectile projectileScript = bullet.GetComponent<Projectile>();
+        Vector3 bulletDirection = ray.direction;
+        
+
+        projectileScript.ShootWithSpread(bulletDirection * 1000.0f, 3.0f, 0.01f);
+        projectileScript.onHit += (RaycastHit hit) =>
+        {
+            if (hit.transform.gameObject != null)
+
+            {
+                HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
+                if (enemyHealthComponent != null)
+                {
+                    enemyHealthComponent?.TakeDamage(50.0f);
+                }
+            }
+        };
     }
 }

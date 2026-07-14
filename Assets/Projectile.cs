@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering.Analytics;
 using System;
+using TankGame.Events;
 
 public class Projectile : MonoBehaviour
 {
@@ -14,8 +15,7 @@ public class Projectile : MonoBehaviour
     private float lifetime = 0.0f;
     public float maxLifetime = 10.0f;
     private Vector3 acceleration = Physics.gravity * 9.81f;
-    public delegate void OnHit(RaycastHit? hit);
-    public OnHit onHit;
+    public RaycastHitEvent onHit;
     
     private bool isHit = false;
     
@@ -25,13 +25,28 @@ public class Projectile : MonoBehaviour
         velocity = initialVelocity;
         maxLifetime = lifetime;
     }
+    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength)
+    {
+        Vector2 spread = UnityEngine.Random.insideUnitCircle * spreadStrength;
+
+        Vector3 direction = initialVelocity.normalized + new Vector3(spread.x, spread.y, 0.0f);
+        initialVelocity = direction * initialVelocity.magnitude;
+        
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (isHit) {return;}
+    
         lifetime += Time.deltaTime;
+        if (lifetime >= maxLifetime)
+        {
+            isHit = true;
 
+            Destroy(gameObject);
+            return;
+        }
         Vector3 lastPosition = transform.position;
 
         velocity += acceleration * Time.deltaTime;
@@ -44,16 +59,9 @@ public class Projectile : MonoBehaviour
         if (Physics.Raycast(lastPosition, difference.normalized, out hit, difference.magnitude))
         {
             isHit = true;
-        }
-
-        if (lifetime >= maxLifetime)
-        {
-            isHit = true;
-        }
-
-        if (isHit)
-        {
             onHit?.Invoke(hit);
+
+            Destroy(gameObject);
         }
         
     }
