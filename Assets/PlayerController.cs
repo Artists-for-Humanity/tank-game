@@ -1,6 +1,7 @@
 
 
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.InputSystem;
 using UnityEngine.Scripting.APIUpdating;
 using Unity.Mathematics;
@@ -13,9 +14,9 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rigidBody;
-    public GameObject turretAxis;
+    private GameObject turretAxis;
     //public GameObject barrelAxis;
-
+    private GameObject projectile;
     public float baseRotationSpeed = 5;
     public float turretRotationSpeed = 5;
 
@@ -28,21 +29,22 @@ public class PlayerController : MonoBehaviour
     public float attackCooldown = 0.1f;
 
     public float speed = 100;
-    public GameObject projectile;
+
 
     private HealthComponent healthComponent;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
 
+        turretAxis = transform.Find("TurretAxis").gameObject;
+        projectile = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Projectile.prefab");
+
         rigidBody = GetComponent<Rigidbody>();
 
         healthComponent = GetComponent<HealthComponent>();
-
-        
     }
 
     // Update is called once per frame
@@ -100,13 +102,12 @@ public class PlayerController : MonoBehaviour
         bullet.transform.position = shootPosition.transform.position;
         Projectile projectileScript = bullet.GetComponent<Projectile>();
         Vector3 bulletDirection = ray.direction;
-        
+
 
         projectileScript.ShootWithSpread(bulletDirection * 1000.0f, 3.0f, 0.01f);
         projectileScript.onHit += (RaycastHit hit) =>
         {
             if (hit.transform.gameObject != null)
-
             {
                 HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
                 if (enemyHealthComponent != null)

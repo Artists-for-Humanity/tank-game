@@ -10,7 +10,10 @@ public class HealthComponent : MonoBehaviour
     public ParameterlessEvent onDied;
     public bool isDead = false;
 
-
+    public float HealthAsPercentage()
+    {
+        return health/maxHealth;
+    }
     public void TakeDamage(float damage)
     {
         

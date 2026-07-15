@@ -12,9 +12,11 @@ public class Projectile : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 velocity;
+    private Vector3 acceleration = Physics.gravity * 9.81f;
+
     private float lifetime = 0.0f;
     public float maxLifetime = 10.0f;
-    private Vector3 acceleration = Physics.gravity * 9.81f;
+    
     public RaycastHitEvent onHit;
     
     private bool isHit = false;
@@ -30,8 +32,7 @@ public class Projectile : MonoBehaviour
         Vector2 spread = UnityEngine.Random.insideUnitCircle * spreadStrength;
 
         Vector3 direction = initialVelocity.normalized + new Vector3(spread.x, spread.y, 0.0f);
-        initialVelocity = direction * initialVelocity.magnitude;
-        
+        velocity = direction * initialVelocity.magnitude;
     }
 
     // Update is called once per frame
