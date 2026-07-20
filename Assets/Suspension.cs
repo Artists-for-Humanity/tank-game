@@ -30,7 +30,7 @@ public class Suspension : MonoBehaviour
     void Update()
     {
         float normalForce = rigidBody.mass * 9.81f;
-        isGrounded = true;
+        isGrounded = false;
         for (int i = 0; i < wheelPositions.Length; i++)
         {
             Vector3 worldPosition = rigidBody.transform.TransformPoint(wheelPositions[i]);

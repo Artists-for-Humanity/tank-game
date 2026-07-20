@@ -8,12 +8,15 @@ public static class LevelManager
     public static float playerLevel = 0.0f;
     public static float playerExperience = 0.0f;
 
+    private const float experienceExponentRate = 0.005f;
+    private const float experienceLinearRate = 100f;
+
     public static ParameterlessEvent onLevelUp;
 
 
     public static float GetPlayerLevelUpRequirement(float level)
     {
-        return math.pow((level + 1f) * 100f, 1.0f + level * .01f);
+        return math.pow((level + 1f) * experienceLinearRate, 1.0f + level * experienceExponentRate);
     }
 
     public static void AddExperience(float experience)

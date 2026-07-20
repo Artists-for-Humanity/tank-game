@@ -20,22 +20,23 @@ public class GameManager : MonoBehaviour
     private float respawnInterval = 3.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameOverUI = GameObject.Find("GameOverUI").GetComponent<GameOverUI>();
-        gameOverUI.SetEnabled(false);
+        
         player.GetComponent<HealthComponent>().healthChanged = (float oldHealth, float newHealth) =>
         {
             CombatUIManager.Instance.UpdateHealthBar(player.GetComponent<HealthComponent>().HealthAsPercentage());
         };
+
+        gameOverUI.SetEnabled(false);
+
         player.GetComponent<HealthComponent>().onDied = () =>
         {
             gameOverUI.SetEnabled(true);
         };
     }
-
-    
 
     // Update is called once per frame
     void Update()
@@ -62,11 +63,9 @@ public class GameManager : MonoBehaviour
             int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
 
             GameObject newEnemy = Instantiate(enemy);
-
             newEnemy.transform.position = enemySpawnPositions[randomInteger];
 
             newEnemy.GetComponent<EnemyAI>().follow = player;
-
             newEnemy.GetComponent<HealthComponent>().onDied += () =>
             {
                 Destroy(newEnemy);
