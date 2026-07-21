@@ -3,32 +3,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombatUIManager : MonoBehaviour
+public static class CombatUIManager
 {
-    private static CombatUIManager _instance;
-    public static CombatUIManager Instance {get {return _instance;}}
+    public static GameObject combatUI;
+    public static GameObject healthBar;
+    public static GameObject experienceBar;
 
-    public GameObject combatUI;
-    public GameObject healthBar;
-    public GameObject experienceBar;
-
-    private void Awake()
+    public static void Initialize()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        } else
-        {
-            _instance = this;
-        }
+        combatUI = GameObject.Find("CombatUI");
+        healthBar = combatUI.transform.Find("HealthBar").gameObject;
+        experienceBar = combatUI.transform.Find("ExperienceBar").gameObject;
     }
 
-    public void UpdateHealthBar(float percentage)
+    public static void UpdateHealthBar(float percentage)
     {
         healthBar.GetComponent<Slider>().value = percentage;
     }
 
-    public void UpdateExperienceBar(float percentage, float level)
+    public static void UpdateExperienceBar(float percentage, float level)
     {
         experienceBar.GetComponent<Slider>().value = percentage;
         experienceBar.transform.Find("LevelText").GetComponent<TextMeshProUGUI>().text = level.ToString();

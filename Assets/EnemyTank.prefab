@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4198705308057211808}
   - component: {fileID: 4641961295947667081}
   - component: {fileID: 5056325103080007314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VehicleMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 8546823429163266087}
   - component: {fileID: 2564865959592167347}
   - component: {fileID: 2273669528793803907}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,6 +255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  hasRegen: 0
+  regenPerTick: 1
+  regenTickInterval: 0.1
+  regenDelayInterval: 2
   isDead: 0
 --- !u!1 &6063864104463494381
 GameObject:
@@ -265,7 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933073144781241662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurretAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +304,7 @@ GameObject:
   - component: {fileID: 8437913977063216966}
   - component: {fileID: 2461440884887632592}
   - component: {fileID: 3823077500091432827}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8128592578317382055}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

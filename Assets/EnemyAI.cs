@@ -24,7 +24,7 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject shootPosition;
 
-    
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -39,10 +39,6 @@ public class EnemyAI : MonoBehaviour
 
         healthComponent = GetComponent<HealthComponent>();
         projectile = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Projectile.prefab");
-
-
-
-        
     }
 
     // Update is called once per frame
@@ -97,7 +93,7 @@ public class EnemyAI : MonoBehaviour
             Vector3 bulletDirection = directionToPlayer;
 
 
-            projectileScript.ShootWithSpread(bulletDirection * 300.0f, 3.0f, 0.05f);
+            projectileScript.ShootWithSpread(bulletDirection * 300.0f, 3.0f, 0.05f, 1 << gameObject.layer);
             projectileScript.onHit += (RaycastHit hit) =>
             {
                 if (hit.transform.gameObject != null)

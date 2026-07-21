@@ -10,4 +10,9 @@ public class WeaponUpgrade : ScriptableObject
     public float bulletSpread;
     public float bulletLifetime;
 
+    public Mesh weaponMesh;
+    public Vector3 positionOffset = Vector3.zero;
+    public Vector3 rotationOffset = Vector3.zero;
+    public Vector3 scale = Vector3.one;
+
 }

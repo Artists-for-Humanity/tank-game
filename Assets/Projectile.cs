@@ -20,19 +20,22 @@ public class Projectile : MonoBehaviour
     public RaycastHitEvent onHit;
     
     private bool isHit = false;
-    
+    private LayerMask ignore;
 
-    public void Shoot(Vector3 initialVelocity, float lifetime)
+    public void Shoot(Vector3 initialVelocity, float lifetime, LayerMask layerMask)
     {
         velocity = initialVelocity;
         maxLifetime = lifetime;
+        ignore = layerMask;
+        
     }
-    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength)
+    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength, LayerMask layerMask)
     {
         Vector2 spread = UnityEngine.Random.insideUnitCircle * spreadStrength;
 
         Vector3 direction = initialVelocity.normalized + new Vector3(spread.x, spread.y, 0.0f);
         velocity = direction * initialVelocity.magnitude;
+        ignore = layerMask;
     }
 
     // Update is called once per frame
@@ -57,7 +60,7 @@ public class Projectile : MonoBehaviour
         Vector3 difference = transform.position - lastPosition;
 
         Debug.DrawRay(lastPosition, difference, Color.green, 1.0f);
-        if (Physics.Raycast(lastPosition, difference.normalized, out hit, difference.magnitude))
+        if (Physics.Raycast(lastPosition, difference.normalized, out hit, difference.magnitude, ~ignore))
         {
             isHit = true;
             onHit?.Invoke(hit);

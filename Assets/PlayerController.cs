@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rigidBody;
-    private GameObject turretAxis;
+    private GameObject weaponAxis;
     //public GameObject barrelAxis;
     private GameObject projectile;
     public float baseRotationSpeed = 5;
@@ -26,9 +26,11 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction attackAction;
     private float attackTimer = 0.0f;
-    public float attackCooldown = 0.1f;
 
-    public float speed = 100;
+    public float bulletDamage = 50.0f;
+    public float firerate = 1.0f;
+    public float vehicleSpeed = 100f;
+    public float bulletSpeed = 1000f;
 
 
     private HealthComponent healthComponent;
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
 
-        turretAxis = transform.Find("TurretAxis").gameObject;
+        weaponAxis = transform.Find("WeaponAxis").gameObject;
         projectile = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Projectile.prefab");
 
         rigidBody = GetComponent<Rigidbody>();
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
             if (isGrounded)
             {
-                rigidBody.linearVelocity += transform.forward * Time.deltaTime * speed;
+                rigidBody.linearVelocity += transform.forward * Time.deltaTime * vehicleSpeed;
             }
 
             Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour
         bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
         if (isAttacking && attackTimer <= 0.0f)
         {
-            attackTimer = attackCooldown;
+            attackTimer = firerate;
 
             ShootGun();
         }
@@ -89,8 +91,8 @@ public class PlayerController : MonoBehaviour
         turretDirection.Normalize();
 
         Quaternion rotationTarget = Quaternion.LookRotation(turretDirection);
-        turretAxis.transform.rotation = Quaternion.Slerp(turretAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
-        turretAxis.transform.localEulerAngles = new Vector3(0, turretAxis.transform.localEulerAngles.y, 0);
+        weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
+        weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
 
     }
 
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
         Vector3 bulletDirection = ray.direction;
 
 
-        projectileScript.ShootWithSpread(bulletDirection * 1000.0f, 3.0f, 0.01f);
+        projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, 3.0f, 0.01f, 1 << gameObject.layer);
         projectileScript.onHit += (RaycastHit hit) =>
         {
             if (hit.transform.gameObject != null)
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
                 if (enemyHealthComponent != null)
                 {
-                    enemyHealthComponent?.TakeDamage(50.0f);
+                    enemyHealthComponent?.TakeDamage(bulletDamage);
                 }
             }
         };
