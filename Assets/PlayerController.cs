@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public float firerate = 1.0f;
     public float vehicleSpeed = 100f;
     public float bulletSpeed = 1000f;
+    public float bulletLifetime = 3f;
+    public float bulletSpread = 0f;
 
 
     private HealthComponent healthComponent;
@@ -106,7 +108,7 @@ public class PlayerController : MonoBehaviour
         Vector3 bulletDirection = ray.direction;
 
 
-        projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, 3.0f, 0.01f, 1 << gameObject.layer);
+        projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, bulletLifetime, bulletSpread, 1 << gameObject.layer);
         projectileScript.onHit += (RaycastHit hit) =>
         {
             if (hit.transform.gameObject != null)

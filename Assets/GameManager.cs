@@ -22,9 +22,19 @@ public class GameManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    void Awake()
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
+
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
     }
 
     void Start()
@@ -34,28 +44,25 @@ public class GameManager : MonoBehaviour
 
     void InitializeGame()
     {
-        CombatUIManager.Initialize();
-        LevelManager.Initialize();
-
         player = GameObject.FindGameObjectWithTag("Player");
         gameOverUI = GameObject.Find("GameOverUI");
-        
+
         player.GetComponent<HealthComponent>().healthChanged = (float oldHealth, float newHealth) =>
         {
             CombatUIManager.UpdateHealthBar(player.GetComponent<HealthComponent>().HealthAsPercentage());
         };
 
-        gameOverUI.SetActive(false);
+        gameOverUI.GetComponent<Canvas>().enabled = false;
         player.GetComponent<HealthComponent>().onDied = () =>
         {
-            gameOverUI.SetActive(true);
+            gameOverUI.GetComponent<Canvas>().enabled = true;
         };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player == null) {return;}
+        if (player == null) { return; }
 
         timer += Time.deltaTime;
 
@@ -76,7 +83,7 @@ public class GameManager : MonoBehaviour
         if (timer >= enemySpawnInterval)
         {
             timer = 0.0f;
-            
+
             SpawnEnemy();
         }
     }
@@ -84,23 +91,21 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        InitializeGame();
     }
 
     void SpawnEnemy()
     {
         int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
 
-            GameObject newEnemy = Instantiate(enemy);
-            newEnemy.transform.position = enemySpawnPositions[randomInteger];
+        GameObject newEnemy = Instantiate(enemy);
+        newEnemy.transform.position = enemySpawnPositions[randomInteger];
 
-            newEnemy.GetComponent<EnemyAI>().follow = player;
-            newEnemy.GetComponent<HealthComponent>().onDied += () =>
-            {
-                Destroy(newEnemy);
+        newEnemy.GetComponent<EnemyAI>().follow = player;
+        newEnemy.GetComponent<HealthComponent>().onDied += () =>
+        {
+            Destroy(newEnemy);
 
-                LevelManager.AddExperience(50f);
-            };
+            LevelManager.Instance.AddExperience(50f);
+        };
     }
 }
