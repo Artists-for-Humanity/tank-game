@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
   m_Name: Gun3
   m_EditorClassIdentifier: 
-  firerate: 0.5
+  firerate: 0.1
   bulletDamage: 50
   bulletSpeed: 1000
   bulletSpread: 0.01
