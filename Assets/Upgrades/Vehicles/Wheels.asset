@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Wheels
   m_EditorClassIdentifier: 
   sidewaysFriction: 1
-  speed: 5
+  speed: 10
   health: 50
-  vehicleMesh: {fileID: -2432090755550338912, guid: 8844348e298394b5ca7def87ba566705, type: 3}
-  positionOffset: {x: 0, y: -0.69, z: 0}
+  vehicleMesh: {fileID: -1550514412580984892, guid: c8b45f898d3704ed9903c75b84ef0e62, type: 3}
+  vehicleMaterial: {fileID: 2100000, guid: 2a58184dd698b445297d0ed81c09dea3, type: 2}
+  positionOffset: {x: 0, y: -0.72, z: 0.27}
   rotationOffset: {x: 0, y: 180, z: 0}
   scale: {x: 1, y: 1, z: 1}

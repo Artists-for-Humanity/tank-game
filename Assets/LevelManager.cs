@@ -70,6 +70,8 @@ public class LevelManager : MonoBehaviour
 
         GameObject vehicleMesh = player.transform.Find("VehicleMesh").gameObject;
         vehicleMesh.GetComponent<MeshFilter>().mesh = newVehicleUpgrade.vehicleMesh;
+        vehicleMesh.GetComponent<MeshRenderer>().material = newVehicleUpgrade.vehicleMaterial;
+
         vehicleMesh.transform.localPosition = newVehicleUpgrade.positionOffset;
         vehicleMesh.transform.localEulerAngles = newVehicleUpgrade.rotationOffset;
         vehicleMesh.transform.localScale = newVehicleUpgrade.scale;
@@ -85,6 +87,7 @@ public class LevelManager : MonoBehaviour
 
         GameObject weaponMesh = player.transform.Find("WeaponAxis").Find("WeaponMesh").gameObject;
         weaponMesh.GetComponent<MeshFilter>().mesh = newWeaponUpgrade.weaponMesh;
+        weaponMesh.GetComponent<MeshRenderer>().material = newWeaponUpgrade.weaponMaterial;
         weaponMesh.transform.localPosition = newWeaponUpgrade.positionOffset;
         weaponMesh.transform.localEulerAngles = newWeaponUpgrade.rotationOffset;
         weaponMesh.transform.localScale = newWeaponUpgrade.scale;

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
+  m_Name: Flame3
+  m_EditorClassIdentifier: 
+  firerate: 0.02
+  bulletDamage: 5
+  bulletSpeed: 300
+  bulletSpread: 0.05
+  bulletLifetime: 0.1
+  weaponMesh: {fileID: 4493585093827132993, guid: ef4add2df4ccb4fb49260d7d27cc7b2b, type: 3}
+  weaponMaterial: {fileID: 2100000, guid: bf7fe1275d31d4a0ab9ae97b777868c0, type: 2}
+  positionOffset: {x: -0.03, y: 0.49, z: 0.01}
+  rotationOffset: {x: 0, y: 180, z: 0}
+  scale: {x: 1, y: 1, z: 1}

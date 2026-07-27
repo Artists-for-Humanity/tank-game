@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ded3dae0a549d3853975f2938a889, type: 3}
+  m_Name: Tracks
+  m_EditorClassIdentifier: 
+  sidewaysFriction: 1
+  speed: 5
+  health: 100
+  vehicleMesh: {fileID: -5053925668127403250, guid: fae2ec7fa673b4c28ba6ad95711e5406, type: 3}
+  vehicleMaterial: {fileID: 2100000, guid: 7acb8e0c0e4634bc5a70b8c9befa58dd, type: 2}
+  positionOffset: {x: 0, y: -0.57, z: 0.02}
+  rotationOffset: {x: 0, y: 180, z: 0}
+  scale: {x: 1, y: 1, z: 1}
