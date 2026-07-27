@@ -919,7 +919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d93102a64099476f9c2b88c9e7d3005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponUpgrade: {fileID: 11400000, guid: 7c0659cb1ee9d4c9aa400c3c7f41d993, type: 2}
+  weaponUpgrade: {fileID: 11400000, guid: b864f6e060fdc4dc48f862142c1ba561, type: 2}
   vehicleUpgrade: {fileID: 11400000, guid: 121a7e8748c204eca8c410ef9906ce98, type: 2}
 --- !u!4 &158947331
 Transform:
