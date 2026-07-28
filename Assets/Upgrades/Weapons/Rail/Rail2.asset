@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
-  m_Name: Gun2
+  m_Name: Rail2
   m_EditorClassIdentifier: 
-  firerate: 0.5
-  bulletDamage: 50
-  bulletSpeed: 1000
-  bulletSpread: 0.01
-  bulletLifetime: 3
-  weaponMesh: {fileID: -1550514412580984892, guid: 462de4620e9e64a15ad73d42d2589cff, type: 3}
-  weaponMaterial: {fileID: 2100000, guid: d1a51db167e20418b975904b692379af, type: 2}
-  positionOffset: {x: -0.03, y: 0.68, z: -0.12}
+  firerate: 1.5
+  bulletDamage: 200
+  bulletSpeed: 10000
+  bulletSpread: 0
+  bulletLifetime: 1
+  weaponMesh: {fileID: -5495902117074765545, guid: f385c7aac2a06430fb5dd1706e999d7f, type: 3}
+  weaponMaterial: {fileID: 2100000, guid: e5dc2915c2661492aa5b20f0141bd634, type: 2}
+  positionOffset: {x: 0, y: 0.68, z: -0.12}
   rotationOffset: {x: 0, y: 180, z: 0}
   scale: {x: 1, y: 1, z: 1}

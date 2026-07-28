@@ -23,6 +23,13 @@ public static class CombatUIManager
 
     }
 
+    public static void UpdateReloadBar(float percentage)
+    {
+        GameObject combatUI = GameObject.Find("CombatUI");
+        GameObject crosshair = combatUI.transform.Find("Crosshair").gameObject;
 
+        GameObject reloadBar = crosshair.transform.Find("ReloadBar").gameObject;
+        reloadBar.GetComponent<Slider>().value = 1 - percentage;
+    }
 
 }

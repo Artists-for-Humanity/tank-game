@@ -22,20 +22,25 @@ public class Projectile : MonoBehaviour
     private bool isHit = false;
     private LayerMask ignore;
 
-    public void Shoot(Vector3 initialVelocity, float lifetime, LayerMask layerMask)
+    public int penetration = 10;
+
+
+    public void Shoot(Vector3 initialVelocity, float lifetime, LayerMask layerMask, int pen)
     {
         velocity = initialVelocity;
         maxLifetime = lifetime;
         ignore = layerMask;
+        penetration = pen;
         
     }
-    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength, LayerMask layerMask)
+    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength, LayerMask layerMask, int pen)
     {
         Vector2 spread = UnityEngine.Random.insideUnitCircle * spreadStrength;
 
         Vector3 direction = initialVelocity.normalized + new Vector3(spread.x, spread.y, 0.0f);
         velocity = direction * initialVelocity.magnitude;
         ignore = layerMask;
+        penetration = pen;
     }
 
     // Update is called once per frame
@@ -56,16 +61,27 @@ public class Projectile : MonoBehaviour
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
 
-        RaycastHit hit;
         Vector3 difference = transform.position - lastPosition;
+        RaycastHit[] hits = Physics.RaycastAll(lastPosition, difference.normalized, difference.magnitude, ~ignore);
+        
+        Debug.DrawRay(lastPosition, difference);
+        
+        if (hits.Length <= 0) {return;}
+        System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
-        Debug.DrawRay(lastPosition, difference, Color.green, 1.0f);
-        if (Physics.Raycast(lastPosition, difference.normalized, out hit, difference.magnitude, ~ignore))
+        int pierceCount = 0;
+
+        foreach (RaycastHit hit in hits)
         {
-            isHit = true;
-            onHit?.Invoke(hit);
+            if (pierceCount >= penetration)
+            {
+                isHit = true;
+                Destroy(gameObject);
+                return;
+            }
 
-            Destroy(gameObject);
+            pierceCount++;
+            onHit?.Invoke(hit);
         }
         
     }

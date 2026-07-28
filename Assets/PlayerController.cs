@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         attackTimer -= Time.deltaTime;
 
+        CombatUIManager.UpdateReloadBar(attackTimer / firerate);
 
         Vector3 cameraForward = Vector3.Scale(currentCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 cameraRight = Vector3.Scale(currentCamera.transform.right, new Vector3(1, 0, 1)).normalized;
@@ -100,15 +101,22 @@ public class PlayerController : MonoBehaviour
 
     void ShootGun()
     {
+        
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
 
         GameObject bullet = Instantiate(projectile);
         bullet.transform.position = shootPosition.transform.position;
         Projectile projectileScript = bullet.GetComponent<Projectile>();
+        RaycastHit mouseHit;
         Vector3 bulletDirection = ray.direction;
+        if (Physics.Raycast(ray, out mouseHit))
+        {
+            bulletDirection = mouseHit.point - shootPosition.transform.position;
+        }
+        
 
 
-        projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, bulletLifetime, bulletSpread, 1 << gameObject.layer);
+        projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, bulletLifetime, bulletSpread, 1 << gameObject.layer, 10);
         projectileScript.onHit += (RaycastHit hit) =>
         {
             if (hit.transform.gameObject != null)

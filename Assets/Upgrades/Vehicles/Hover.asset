@@ -17,6 +17,6 @@ MonoBehaviour:
   health: 75
   vehicleMesh: {fileID: -5053925668127403250, guid: 282df8867b7d54de48f42996ce0d42f9, type: 3}
   vehicleMaterial: {fileID: 2100000, guid: f1a254fc69b954ff3854294a138cbd59, type: 2}
-  positionOffset: {x: 0, y: -0.37, z: 0.02}
+  positionOffset: {x: 0, y: -0.34, z: 0.02}
   rotationOffset: {x: 0, y: 180, z: 0}
   scale: {x: 1, y: 1, z: 1}

@@ -93,7 +93,7 @@ public class EnemyAI : MonoBehaviour
             Vector3 bulletDirection = directionToPlayer;
 
 
-            projectileScript.ShootWithSpread(bulletDirection * 300.0f, 3.0f, 0.05f, 1 << gameObject.layer);
+            projectileScript.ShootWithSpread(bulletDirection * 300.0f, 3.0f, 0.05f, 1 << gameObject.layer, 1);
             projectileScript.onHit += (RaycastHit hit) =>
             {
                 if (hit.transform.gameObject != null)
