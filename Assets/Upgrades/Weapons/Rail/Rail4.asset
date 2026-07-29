@@ -17,6 +17,7 @@ MonoBehaviour:
   bulletSpeed: 10000
   bulletSpread: 0
   bulletLifetime: 1
+  bulletsPerShot: 1
   weaponMesh: {fileID: -8678823145569952518, guid: 790345f54f76a45aab4d93e78eb7f9bf, type: 3}
   weaponMaterial: {fileID: 2100000, guid: aa4573e039dbf41a5842e476636ffe20, type: 2}
   positionOffset: {x: -0.03, y: 0.7, z: 0.01}

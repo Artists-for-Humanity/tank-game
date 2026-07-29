@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Big2
   m_EditorClassIdentifier: 
   firerate: 1
-  bulletDamage: 500
-  bulletSpeed: 100
-  bulletSpread: 0
+  bulletDamage: 20
+  bulletSpeed: 400
+  bulletSpread: 0.05
   bulletLifetime: 1
+  bulletsPerShot: 4
   weaponMesh: {fileID: 2212009239438826721, guid: 56eeea83c34d047ff99ae04532f52539, type: 3}
   weaponMaterial: {fileID: 2100000, guid: a34ddec7e62ac4c99aba1af8d247c271, type: 2}
   positionOffset: {x: -0.03, y: 0.49, z: 0.01}
