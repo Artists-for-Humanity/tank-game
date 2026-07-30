@@ -11,31 +11,14 @@ using UnityEditor.VersionControl;
 using System.Threading;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : UpgradeableTank
 {
-    private Rigidbody rigidBody;
-    private GameObject weaponAxis;
-    //public GameObject barrelAxis;
-    private GameObject projectile;
-    public float baseRotationSpeed = 5;
-    public float turretRotationSpeed = 5;
+
 
     public Camera currentCamera;
-    public GameObject shootPosition;
 
     private InputAction moveAction;
     private InputAction attackAction;
-    private float attackTimer = 0.0f;
-
-    public float bulletDamage = 50.0f;
-    public float firerate = 1.0f;
-    public float vehicleSpeed = 100f;
-    public float bulletSpeed = 1000f;
-    public float bulletLifetime = 3f;
-    public float bulletSpread = 0f;
-    public int bulletsPerShot = 1;
-
-    private HealthComponent healthComponent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,6 +32,11 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
 
         healthComponent = GetComponent<HealthComponent>();
+
+        healthComponent.healthChanged += (float oldHealth, float newHealth) =>
+        {
+            UIManager.UpdateHealthBar(healthComponent.HealthAsPercentage());
+        };
     }
 
     // Update is called once per frame
@@ -56,51 +44,27 @@ public class PlayerController : MonoBehaviour
     {
         attackTimer -= Time.deltaTime;
 
-        UIManager.UpdateReloadBar(attackTimer / firerate);
+        UIManager.UpdateReloadBar(attackTimer / tankStats.firerate);
 
         Vector3 cameraForward = Vector3.Scale(currentCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 cameraRight = Vector3.Scale(currentCamera.transform.right, new Vector3(1, 0, 1)).normalized;
 
         Vector2 moveDirection = moveAction.ReadValue<Vector2>();
+        bool isGrounded = GetComponent<Suspension>().isGrounded;
 
         if (moveDirection != Vector2.zero)
         {
-            bool isGrounded = GetComponent<Suspension>().isGrounded;
+
+            Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
+            RotateBase(baseDirection);
 
             if (isGrounded)
             {
-                rigidBody.linearVelocity += transform.forward * Time.deltaTime * vehicleSpeed;
+                Move(transform.forward);
             }
 
-            Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
-            Quaternion baseRotationTarget = Quaternion.LookRotation(baseDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
         }
 
-
-        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
-
-        bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
-        if (isAttacking && attackTimer <= 0.0f)
-        {
-            attackTimer = firerate;
-
-            ShootGun();
-        }
-
-
-        Vector3 turretDirection = ray.direction;
-        turretDirection.y = 0;
-        turretDirection.Normalize();
-
-        Quaternion rotationTarget = Quaternion.LookRotation(turretDirection);
-        weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
-        weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
-
-    }
-
-    void ShootGun()
-    {
 
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit mouseHit;
@@ -110,26 +74,19 @@ public class PlayerController : MonoBehaviour
             bulletDirection = (mouseHit.point - shootPosition.transform.position).normalized;
         }
 
-
-        for (int i = 0; i < bulletsPerShot; i++)
+        bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
+        if (isAttacking && attackTimer <= 0.0f)
         {
-            GameObject bullet = Instantiate(projectile);
-            bullet.transform.position = shootPosition.transform.position;
-            Projectile projectileScript = bullet.GetComponent<Projectile>();
+            attackTimer = tankStats.firerate;
 
-            projectileScript.ShootWithSpread(bulletDirection * bulletSpeed, bulletLifetime, bulletSpread, 1 << gameObject.layer, 10);
-            projectileScript.onHit += (RaycastHit hit) =>
-            {
-                if (hit.transform.gameObject != null)
-                {
-                    HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
-                    if (enemyHealthComponent != null)
-                    {
-                        enemyHealthComponent?.TakeDamage(bulletDamage);
-                    }
-                }
-            };
+            ShootGun(bulletDirection, 1 << gameObject.layer);
         }
 
+
+        Vector3 turretDirection = ray.direction;
+        turretDirection.y = 0;
+        turretDirection.Normalize();
+
+        PointGun(turretDirection);
     }
 }

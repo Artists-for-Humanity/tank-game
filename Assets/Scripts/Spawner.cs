@@ -61,7 +61,10 @@ public class Spawner : MonoBehaviour
         int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
        
         GameObject newEnemy = Instantiate(enemy, enemySpawnPositions[randomInteger], Quaternion.identity);
-        
+        newEnemy.GetComponent<EnemyAI>().statMultipliers.bulletDamage = 0.05f;
+        newEnemy.GetComponent<EnemyAI>().statMultipliers.bulletSpeed = 0.5f;
+
+        newEnemy.GetComponent<EnemyAI>().RefreshStats();
         newEnemy.GetComponent<EnemyAI>().follow = player;
         newEnemy.GetComponent<HealthComponent>().onDied += () =>
         {

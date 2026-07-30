@@ -428,8 +428,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f08f76e6a314495902e3f8e63e317a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follow: {fileID: 0}
-  baseRotationSpeed: 5
-  speed: 8
+  rigidBody: {fileID: 1487101542848474000}
+  weaponAxis: {fileID: 7491883388691079303}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   shootPosition: {fileID: 5867930686545760800}
+  healthComponent: {fileID: 78861619992502305}
+  baseRotationSpeed: 5
+  turretRotationSpeed: 5
+  currentVehicle: {fileID: 11400000, guid: bf31d35a9ef9145c9a246b4db60ad6db, type: 2}
+  currentWeapon: {fileID: 11400000, guid: d6c74c58a3a5e4d7f8449bda37428d12, type: 2}
+  follow: {fileID: 0}
