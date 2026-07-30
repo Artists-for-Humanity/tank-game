@@ -37,6 +37,9 @@ public class PlayerController : UpgradeableTank
         {
             UIManager.UpdateHealthBar(healthComponent.HealthAsPercentage());
         };
+
+        LoadVehicle(currentVehicle);
+        LoadWeapon(currentWeapon);
     }
 
     // Update is called once per frame

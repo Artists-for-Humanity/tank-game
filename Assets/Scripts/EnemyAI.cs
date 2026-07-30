@@ -25,6 +25,9 @@ public class EnemyAI : UpgradeableTank
         rigidBody.interpolation = RigidbodyInterpolation.Interpolate;
 
         healthComponent = GetComponent<HealthComponent>();
+
+        LoadVehicle(currentVehicle);
+        LoadWeapon(currentWeapon);
     }
 
     // Update is called once per frame

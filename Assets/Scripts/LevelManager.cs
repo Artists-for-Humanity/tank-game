@@ -88,9 +88,6 @@ public class LevelManager : MonoBehaviour
             player.GetComponent<PlayerController>().RefreshStats();
         };;
 
-        player.GetComponent<PlayerController>().LoadVehicle(player.GetComponent<PlayerController>().currentVehicle);
-        player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().currentWeapon);
-
 
         onLevelUp += () =>
         {
