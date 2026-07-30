@@ -17,16 +17,16 @@ public class Tank : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private Rigidbody rigidBody;
-    private GameObject weaponAxis;
-    private GameObject projectile;
+    public Rigidbody rigidBody;
+    public GameObject weaponAxis;
+    public GameObject projectile;
     public GameObject shootPosition;
-    private HealthComponent healthComponent;
+    public HealthComponent healthComponent;
 
     public float baseRotationSpeed = 5;
     public float turretRotationSpeed = 5;
 
-    private float attackTimer = 0.0f;
+    protected float attackTimer = 0.0f;
 
     public TankStats tankStats = new TankStats()
     {
@@ -42,14 +42,20 @@ public class Tank : MonoBehaviour
 
     
 
-    void Move(Vector3 direction)
+    protected void Move(Vector3 direction)
     {
-        rigidBody.linearVelocity += transform.forward * Time.deltaTime * tankStats.vehicleSpeed;
+        rigidBody.linearVelocity += direction * Time.deltaTime * tankStats.vehicleSpeed;
+    }
+
+    protected void RotateBase(Vector3 direction)
+    {
+        direction.y = 0;
+        direction.Normalize();
 
         Quaternion baseRotationTarget = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
     }
-    void PointGun(Vector3 direction)
+    protected void PointGun(Vector3 direction)
     {
 
         direction.y = 0;
@@ -59,7 +65,7 @@ public class Tank : MonoBehaviour
         weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
         weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
     }
-    void ShootGun(Vector3 direction)
+    protected void ShootGun(Vector3 direction, LayerMask layerMask)
     {
         for (int i = 0; i < tankStats.bulletsPerShot; i++)
         {
@@ -67,7 +73,7 @@ public class Tank : MonoBehaviour
             bullet.transform.position = shootPosition.transform.position;
             Projectile projectileScript = bullet.GetComponent<Projectile>();
 
-            projectileScript.ShootWithSpread(direction * tankStats.bulletSpeed, tankStats.bulletLifetime, tankStats.bulletSpread, 1 << gameObject.layer, 10);
+            projectileScript.ShootWithSpread(direction * tankStats.bulletSpeed, tankStats.bulletLifetime, tankStats.bulletSpread, layerMask, 10);
             projectileScript.onHit += (RaycastHit hit) =>
             {
                 if (hit.transform.gameObject != null)

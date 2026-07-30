@@ -4174,17 +4174,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31df14fb0261c4cd3b04f8662aecceb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidBody: {fileID: 1327053540}
+  weaponAxis: {fileID: 2066851207}
+  projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
+  shootPosition: {fileID: 96710431}
+  healthComponent: {fileID: 1327053543}
   baseRotationSpeed: 1
   turretRotationSpeed: 3
+  currentVehicle: {fileID: 11400000, guid: bf31d35a9ef9145c9a246b4db60ad6db, type: 2}
+  currentWeapon: {fileID: 11400000, guid: d6c74c58a3a5e4d7f8449bda37428d12, type: 2}
   currentCamera: {fileID: 330585545}
-  shootPosition: {fileID: 96710431}
-  bulletDamage: 50
-  firerate: 1
-  vehicleSpeed: 8
-  bulletSpeed: 1000
-  bulletLifetime: 3
-  bulletSpread: 0
-  bulletsPerShot: 1
 --- !u!114 &1327053542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6151,7 +6150,7 @@ MonoBehaviour:
   enemySpawnInterval: 1
   enemy: {fileID: 8247867217570180762, guid: 72b1677f2766e4b739cb20fadc6c0b50, type: 3}
   enemySpawnPositions:
-  - {x: 0, y: 50, z: 0}
+  - {x: 100, y: 50, z: 0}
 --- !u!4 &1994885087
 Transform:
   m_ObjectHideFlags: 0
