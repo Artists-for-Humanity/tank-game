@@ -283,11 +283,11 @@ Transform:
   m_GameObject: {fileID: 37056594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.05, y: -0.2666694, z: -2.5733333}
-  m_LocalScale: {x: 1.6666667, y: 1.6666667, z: 1.6666667}
+  m_LocalPosition: {x: 0, y: 0.67999834, z: -0.11999993}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 96710432}
+  m_Father: {fileID: 2066851208}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &37056596
 BoxCollider:
@@ -812,8 +812,7 @@ Transform:
   m_LocalPosition: {x: -0.03, y: 0.84, z: 1.424}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 37056595}
+  m_Children: []
   m_Father: {fileID: 2066851208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &127860451
@@ -2085,7 +2084,7 @@ GameObject:
   - component: {fileID: 485424271}
   - component: {fileID: 485424270}
   - component: {fileID: 485424269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4341,8 +4340,26 @@ MonoBehaviour:
   healthComponent: {fileID: 1327053543}
   baseRotationSpeed: 1
   turretRotationSpeed: 3
+  tankStats:
+    health: 100
+    bulletDamage: 50
+    bulletSpeed: 1000
+    firerate: 1
+    vehicleSpeed: 100
+    bulletLifetime: 3
+    bulletSpread: 0
+    bulletsPerShot: 1
   currentVehicle: {fileID: 11400000, guid: bf31d35a9ef9145c9a246b4db60ad6db, type: 2}
   currentWeapon: {fileID: 11400000, guid: d6c74c58a3a5e4d7f8449bda37428d12, type: 2}
+  statMultipliers:
+    health: 1
+    bulletDamage: 1
+    bulletSpeed: 1
+    firerate: 1
+    vehicleSpeed: 1
+    bulletLifetime: 0
+    bulletSpread: 0
+    bulletsPerShot: 0
   currentCamera: {fileID: 330585545}
 --- !u!114 &1327053542
 MonoBehaviour:
@@ -6546,6 +6563,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 37056595}
   - {fileID: 96710432}
   m_Father: {fileID: 1327053539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
