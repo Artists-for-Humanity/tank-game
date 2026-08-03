@@ -7,6 +7,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering.Analytics;
 using System;
 using TankGame.Events;
+using System.Diagnostics;
 
 public class Projectile : MonoBehaviour
 {
@@ -22,28 +23,30 @@ public class Projectile : MonoBehaviour
     private bool isHit = false;
     private LayerMask ignore;
 
-    public int penetration = 10;
+    public int penetration = 1;
 
 
-    public void Shoot(Vector3 initialVelocity, float lifetime, LayerMask layerMask, int pen)
-    {
-        velocity = initialVelocity;
-        maxLifetime = lifetime;
-        ignore = layerMask;
-        penetration = pen;
-        
-        transform.LookAt(transform.position + velocity);
-    }
-    public void ShootWithSpread(Vector3 initialVelocity, float lifetime, float spreadStrength, LayerMask layerMask, int pen)
+    
+    public void Shoot(
+        Vector3 at,
+        Vector3 to,
+        float speed, 
+        float lifetime, 
+        float spreadStrength, 
+        LayerMask layerMask, 
+        int pen
+        )
     {
         Vector2 spread = UnityEngine.Random.insideUnitCircle * spreadStrength;
+        Vector3 baseDirection = (to - at).normalized;
 
-        Vector3 direction = initialVelocity.normalized + Vector3.Cross(initialVelocity.normalized, Vector3.up) * spread.x + Vector3.up * spread.y;
-        velocity = direction * initialVelocity.magnitude;
+        Vector3 direction = baseDirection + Vector3.Cross(baseDirection, Vector3.up) * spread.x + Vector3.up * spread.y;
+        velocity = direction * speed;
         ignore = layerMask;
         penetration = pen;
 
-        transform.LookAt(transform.position + velocity);
+        transform.position = at;
+        transform.LookAt(to);
     }
 
     
@@ -70,7 +73,7 @@ public class Projectile : MonoBehaviour
         Vector3 difference = transform.position - lastPosition;
         RaycastHit[] hits = Physics.RaycastAll(lastPosition, difference.normalized, difference.magnitude, ~ignore);
         
-        Debug.DrawRay(lastPosition, difference);
+        UnityEngine.Debug.DrawRay(lastPosition, difference);
 
         if (hits.Length <= 0) {return;}
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));

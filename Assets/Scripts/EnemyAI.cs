@@ -12,8 +12,9 @@ public class EnemyAI : UpgradeableTank
     private float updateInterval = 1.0f;
     private float timer = 0.0f;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         agent = GetComponent<NavMeshAgent>();
         rigidBody = GetComponent<Rigidbody>();
 
@@ -71,7 +72,7 @@ public class EnemyAI : UpgradeableTank
         {
             attackTimer = 0.0f;
 
-            ShootGun(directionToPlayer, 1 << gameObject.layer);
+            ShootGun(follow.transform.position, 1 << gameObject.layer);
         }
     }
 }

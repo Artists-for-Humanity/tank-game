@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using System.Threading;
 using UnityEngine.SceneManagement;
+using Unity.XR.OpenVR;
 
 public class PlayerController : UpgradeableTank
 {
@@ -21,13 +22,12 @@ public class PlayerController : UpgradeableTank
     private InputAction attackAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
-
-        weaponAxis = transform.Find("WeaponAxis").gameObject;
-        projectile = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Projectile.prefab");
 
         rigidBody = GetComponent<Rigidbody>();
 
@@ -72,17 +72,19 @@ public class PlayerController : UpgradeableTank
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit mouseHit;
         Vector3 bulletDirection = ray.direction;
+        Vector3 to = transform.position + bulletDirection;
+
         if (Physics.Raycast(ray, out mouseHit))
         {
-            bulletDirection = (mouseHit.point - shootPosition.transform.position).normalized;
+            to = mouseHit.point;
         }
-
+        
         bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
         if (isAttacking && attackTimer <= 0.0f)
         {
             attackTimer = tankStats.firerate;
 
-            ShootGun(bulletDirection, 1 << gameObject.layer);
+            ShootGun(to, 1 << gameObject.layer);
         }
 
 

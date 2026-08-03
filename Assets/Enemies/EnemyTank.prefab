@@ -429,12 +429,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1487101542848474000}
-  weaponAxis: {fileID: 7491883388691079303}
+  weaponAxes:
+  - {fileID: 7491883388691079303}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
-  shootPosition: {fileID: 5867930686545760800}
   healthComponent: {fileID: 78861619992502305}
   baseRotationSpeed: 5
   turretRotationSpeed: 5
+  tankStats:
+    health: 100
+    bulletDamage: 50
+    bulletSpeed: 1000
+    firerate: 1
+    vehicleSpeed: 100
+    bulletLifetime: 3
+    bulletSpread: 0
+    bulletsPerShot: 1
   currentVehicle: {fileID: 11400000, guid: bf31d35a9ef9145c9a246b4db60ad6db, type: 2}
   currentWeapon: {fileID: 11400000, guid: d6c74c58a3a5e4d7f8449bda37428d12, type: 2}
+  statMultipliers:
+    health: 1
+    bulletDamage: 1
+    bulletSpeed: 1
+    firerate: 1
+    vehicleSpeed: 1
+    bulletLifetime: 0
+    bulletSpread: 0
+    bulletsPerShot: 0
   follow: {fileID: 0}

@@ -4334,9 +4334,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1327053540}
-  weaponAxis: {fileID: 2066851207}
+  weaponAxes:
+  - {fileID: 2066851207}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
-  shootPosition: {fileID: 96710431}
   healthComponent: {fileID: 1327053543}
   baseRotationSpeed: 1
   turretRotationSpeed: 3

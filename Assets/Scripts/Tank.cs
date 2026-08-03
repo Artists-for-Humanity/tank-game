@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -21,9 +23,9 @@ public class Tank : MonoBehaviour
 
     public Rigidbody rigidBody;
     public GameObject[] weaponAxes;
-    private GameObject[] shootPositions;
+    protected List<GameObject> shootPositions;
     public GameObject projectile;
-    
+
     public HealthComponent healthComponent;
 
     public float baseRotationSpeed = 5;
@@ -43,7 +45,18 @@ public class Tank : MonoBehaviour
         bulletsPerShot = 1,
     };
 
-    
+    protected virtual void Start()
+    {
+        shootPositions = new List<GameObject>();
+        foreach (GameObject weaponAxis in weaponAxes)
+        {
+            foreach (Transform child in weaponAxis.transform)
+            {
+                shootPositions.Append<GameObject>(child.gameObject);
+            }
+        }
+
+    }
 
     protected void Move(Vector3 direction)
     {
@@ -65,29 +78,37 @@ public class Tank : MonoBehaviour
         direction.Normalize();
 
         Quaternion rotationTarget = Quaternion.LookRotation(direction);
-        weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
-        weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
+        foreach (GameObject weaponAxis in weaponAxes)
+        {
+            weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
+            weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
+        }
+
     }
-    protected void ShootGun(Vector3 direction, LayerMask layerMask)
+    protected void ShootGun(Vector3 to, LayerMask layerMask)
     {
         for (int i = 0; i < tankStats.bulletsPerShot; i++)
         {
-            GameObject bullet = Instantiate(projectile);
-            bullet.transform.position = shootPosition.transform.position;
-            Projectile projectileScript = bullet.GetComponent<Projectile>();
-
-            projectileScript.ShootWithSpread(direction * tankStats.bulletSpeed, tankStats.bulletLifetime, tankStats.bulletSpread, layerMask, 10);
-            projectileScript.onHit += (RaycastHit hit) =>
+            foreach (GameObject shootPosition in shootPositions)
             {
-                if (hit.transform.gameObject != null)
+                GameObject bullet = Instantiate(projectile);
+
+                Projectile projectileScript = bullet.GetComponent<Projectile>();
+
+                projectileScript.Shoot(shootPosition.transform.position, to, tankStats.bulletSpeed, tankStats.bulletLifetime, tankStats.bulletSpread, layerMask, 10);
+                projectileScript.onHit += (RaycastHit hit) =>
                 {
-                    HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
-                    if (enemyHealthComponent != null)
+                    if (hit.transform.gameObject != null)
                     {
-                        enemyHealthComponent?.TakeDamage(tankStats.bulletDamage);
+                        HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
+                        if (enemyHealthComponent != null)
+                        {
+                            enemyHealthComponent?.TakeDamage(tankStats.bulletDamage);
+                        }
                     }
-                }
-            };
+                };
+            }
+
         }
 
     }
