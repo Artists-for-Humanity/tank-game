@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public struct TankStats
 {
     public float health;
@@ -18,9 +20,10 @@ public class Tank : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public Rigidbody rigidBody;
-    public GameObject weaponAxis;
+    public GameObject[] weaponAxes;
+    private GameObject[] shootPositions;
     public GameObject projectile;
-    public GameObject shootPosition;
+    
     public HealthComponent healthComponent;
 
     public float baseRotationSpeed = 5;

@@ -79,6 +79,13 @@ public class Projectile : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
+            {
+                isHit = true;
+                Destroy(gameObject);
+                return;
+            }
+
             if (pierceCount >= penetration)
             {
                 isHit = true;
