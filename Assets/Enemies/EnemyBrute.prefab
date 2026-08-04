@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1946609173862401692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.68, z: -0.12}
+  m_LocalPosition: {x: 0, y: -0.565, z: 0.606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946609173862401692}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4493585093827132993, guid: d9e3fd4776a4e40b79aa8d992b4b4307, type: 3}
 --- !u!23 &2150177852455565877
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b3e338b13190f4c57905f265280b7dc3, type: 2}
+  - {fileID: 2100000, guid: 273ea68cc17d94f13ad35dcb46370637, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,7 +148,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3172470656532732175}
-  m_Mesh: {fileID: -8678823145569952518, guid: bd8c704fb2f424f9baddc8ce43434c78, type: 3}
+  m_Mesh: {fileID: -8678823145569952518, guid: 0dd773061e9454e67b13d214f52c73f0, type: 3}
 --- !u!23 &5618450644280039080
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   springCoefficient: 19000
   mu: 0.9
   rollResistance: 1
-  length: 2.3
+  length: 2.8
   wheelPositions:
   - {x: -1.5, y: 0.5, z: -2}
   - {x: 1.5, y: 0.5, z: -2}
@@ -364,11 +364,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f08f76e6a314495902e3f8e63e317a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follow: {fileID: 0}
-  baseRotationSpeed: 5
-  speed: 5
+  rigidBody: {fileID: 2072765246359064587}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
-  shootPosition: {fileID: 7444506261441833677}
+  healthComponent: {fileID: 8401233333633956389}
+  baseRotationSpeed: 5
+  turretRotationSpeed: 5
+  currentVehicle: {fileID: 11400000, guid: 53102dbaaebfb449484dd55b312fb8d7, type: 2}
+  weaponSlots:
+  - weaponAxis: {fileID: 8081265531069117012}
+    shootPosition: {fileID: 7444506261441833677}
+    weaponUpgrade: {fileID: 11400000, guid: e9503a10f70254d1c8999da01c7288c0, type: 2}
+  statMultipliers:
+    health: 1
+    vehicleSpeed: 1
+  weaponStatMultipiers:
+    bulletDamage: 0.05
+    bulletSpeed: 0.5
+    firerate: 1
+    bulletLifetime: 1
+    bulletSpread: 5
+    bulletsPerShot: 1
+  tankStats:
+    health: 100
+    vehicleSpeed: 100
+  follow: {fileID: 0}
 --- !u!1 &7444506261441833677
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +413,7 @@ Transform:
   m_GameObject: {fileID: 7444506261441833677}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.84, z: 1.424}
+  m_LocalPosition: {x: -0.03, y: 0.84, z: 3.46}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -425,7 +444,7 @@ Transform:
   m_GameObject: {fileID: 8081265531069117012}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:

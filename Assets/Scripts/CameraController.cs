@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
     public float zoomSensitivity = 1.0f;
     private float zoom = 10.0f;
 
-
     public UnityEngine.UI.Image crosshair;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

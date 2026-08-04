@@ -69,17 +69,17 @@ public class LevelManager : MonoBehaviour
         };
         bulletDamageStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().statMultipliers.bulletDamage = 1f + newValue/5f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletDamage = 1f + newValue/5f;
             player.GetComponent<PlayerController>().RefreshStats();
         };;
         bulletSpeedStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().statMultipliers.bulletSpeed = 1f + newValue/10f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletSpeed = 1f + newValue/10f;
             player.GetComponent<PlayerController>().RefreshStats();
         };;
         firerateStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().statMultipliers.firerate = 1f - newValue/20f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.firerate = 1f - newValue/20f;
             player.GetComponent<PlayerController>().RefreshStats();
         };;
         vehicleSpeedStatBar.onValueChanged = (float oldValue, float newValue) =>
@@ -95,13 +95,10 @@ public class LevelManager : MonoBehaviour
             {
                 weaponUpgradeBranch = gunBranch;
                 currentUpgrade = (int)playerLevel / 5 - 1;
-                player.GetComponent<PlayerController>().LoadWeapon(weaponUpgradeBranch[currentUpgrade]);
+                player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
             }
         };
     }
-
-
-
 
     public float GetPlayerLevelUpRequirement(float level)
     {
@@ -113,11 +110,6 @@ public class LevelManager : MonoBehaviour
         playerExperience += experience;
 
         float levelUpRequirement = GetPlayerLevelUpRequirement(playerLevel);
-
-        Debug.Log(playerLevel);
-        Debug.Log(playerExperience);
-        Debug.Log(levelUpRequirement.ToString());
-
 
         if (playerExperience >= levelUpRequirement)
         {

@@ -12,7 +12,7 @@ using System.Threading;
 using UnityEngine.SceneManagement;
 using Unity.XR.OpenVR;
 
-public class PlayerController : UpgradeableTank
+public class PlayerController : Tank
 {
 
 
@@ -39,7 +39,7 @@ public class PlayerController : UpgradeableTank
         };
 
         LoadVehicle(currentVehicle);
-        LoadWeapon(currentWeapon);
+        LoadWeapon(weaponSlots[0], null);
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class PlayerController : UpgradeableTank
     {
         attackTimer -= Time.deltaTime;
 
-        UIManager.UpdateReloadBar(attackTimer / tankStats.firerate);
+        UIManager.UpdateReloadBar(attackTimer / (weaponSlots[0].weaponUpgrade.firerate * weaponStatMultipiers.firerate));
 
         Vector3 cameraForward = Vector3.Scale(currentCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 cameraRight = Vector3.Scale(currentCamera.transform.right, new Vector3(1, 0, 1)).normalized;
@@ -82,7 +82,7 @@ public class PlayerController : UpgradeableTank
         bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
         if (isAttacking && attackTimer <= 0.0f)
         {
-            attackTimer = tankStats.firerate;
+            attackTimer = weaponSlots[0].weaponUpgrade.firerate * weaponStatMultipiers.firerate;
 
             ShootGun(to, 1 << gameObject.layer);
         }

@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class EnemyAI : UpgradeableTank
+public class EnemyAI : Tank
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private NavMeshAgent agent;
     public GameObject follow;
+    
 
     private float updateInterval = 1.0f;
     private float timer = 0.0f;
@@ -26,9 +27,11 @@ public class EnemyAI : UpgradeableTank
         rigidBody.interpolation = RigidbodyInterpolation.Interpolate;
 
         healthComponent = GetComponent<HealthComponent>();
-
         LoadVehicle(currentVehicle);
-        LoadWeapon(currentWeapon);
+        foreach (WeaponSlot weaponSlot in weaponSlots)
+        {
+            LoadWeapon(weaponSlot, null);
+        }
     }
 
     // Update is called once per frame
@@ -45,7 +48,6 @@ public class EnemyAI : UpgradeableTank
             timer = 0.0f;
             agent.SetDestination(follow.transform.position);
         }
-
         
         Suspension suspension = GetComponent<Suspension>();
 
@@ -68,11 +70,13 @@ public class EnemyAI : UpgradeableTank
 
         Vector3 directionToPlayer = (follow.transform.position - transform.position).normalized;
 
-        if (attackTimer >= tankStats.firerate)
+        if (attackTimer >= weaponSlots[0].weaponUpgrade.firerate * weaponStatMultipiers.firerate)
         {
             attackTimer = 0.0f;
 
             ShootGun(follow.transform.position, 1 << gameObject.layer);
         }
+
+        PointGun((follow.transform.position - transform.position).normalized);
     }
 }

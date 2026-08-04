@@ -1,20 +1,34 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
-public struct TankStats
+public class TankStats
 {
     public float health;
+    public float vehicleSpeed;
+}
+
+[Serializable]
+public class WeaponStats
+{
     public float bulletDamage;
     public float bulletSpeed;
     public float firerate;
-    public float vehicleSpeed;
-
     public float bulletLifetime;
     public float bulletSpread;
     public int bulletsPerShot;
+}
+
+[Serializable]
+public class WeaponSlot
+{
+    public GameObject weaponAxis;
+    public GameObject shootPosition;
+    public WeaponUpgrade weaponUpgrade;
 }
 
 public class Tank : MonoBehaviour
@@ -22,8 +36,7 @@ public class Tank : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public Rigidbody rigidBody;
-    public GameObject[] weaponAxes;
-    protected List<GameObject> shootPositions;
+
     public GameObject projectile;
 
     public HealthComponent healthComponent;
@@ -33,29 +46,36 @@ public class Tank : MonoBehaviour
 
     protected float attackTimer = 0.0f;
 
+    public VehicleUpgrade currentVehicle;
+
+    public WeaponSlot[] weaponSlots;
+
+    public TankStats statMultipliers = new TankStats()
+    {
+        health = 1f,
+        vehicleSpeed = 1f
+    };
+
+    public WeaponStats weaponStatMultipiers = new WeaponStats()
+    {
+        bulletDamage = 1f,
+        firerate = 1.0f,
+        bulletSpeed = 1f,
+        bulletLifetime = 1f,
+        bulletSpread = 1f,
+        bulletsPerShot = 1,
+    };
+
+
     public TankStats tankStats = new TankStats()
     {
         health = 100,
-        bulletDamage = 50.0f,
-        firerate = 1.0f,
         vehicleSpeed = 100f,
-        bulletSpeed = 1000f,
-        bulletLifetime = 3f,
-        bulletSpread = 0f,
-        bulletsPerShot = 1,
     };
 
     protected virtual void Start()
     {
-        shootPositions = new List<GameObject>();
-        foreach (GameObject weaponAxis in weaponAxes)
-        {
-            foreach (Transform child in weaponAxis.transform)
-            {
-                shootPositions.Append<GameObject>(child.gameObject);
-            }
-        }
-
+        
     }
 
     protected void Move(Vector3 direction)
@@ -68,34 +88,56 @@ public class Tank : MonoBehaviour
         direction.y = 0;
         direction.Normalize();
 
-        Quaternion baseRotationTarget = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
+        //Quaternion baseRotationTarget = Quaternion.LookRotation(direction);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, baseRotationTarget, Time.deltaTime * baseRotationSpeed);
+        
+        
+        Quaternion diff = Quaternion.LookRotation(direction) * Quaternion.Inverse(transform.rotation);
+
+        diff.ToAngleAxis(out float angle, out Vector3 axis);
+
+        if (angle > 180f)
+        {
+            angle -= 360f;
+        }
+
+        float angleRad = angle * Mathf.Deg2Rad;
+
+        Vector3 goalAngularVelocity = axis.normalized * angleRad * baseRotationSpeed;
+        rigidBody.angularVelocity = Vector3.Lerp(rigidBody.angularVelocity, goalAngularVelocity, Time.fixedDeltaTime * baseRotationSpeed);
     }
     protected void PointGun(Vector3 direction)
     {
-
         direction.y = 0;
         direction.Normalize();
 
         Quaternion rotationTarget = Quaternion.LookRotation(direction);
-        foreach (GameObject weaponAxis in weaponAxes)
+        foreach (WeaponSlot weaponSlot in weaponSlots)
         {
-            weaponAxis.transform.rotation = Quaternion.Slerp(weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
-            weaponAxis.transform.localEulerAngles = new Vector3(0, weaponAxis.transform.localEulerAngles.y, 0);
+            weaponSlot.weaponAxis.transform.rotation = Quaternion.Slerp(weaponSlot.weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
+            weaponSlot.weaponAxis.transform.localEulerAngles = new Vector3(0, weaponSlot.weaponAxis.transform.localEulerAngles.y, 0);
         }
-
     }
     protected void ShootGun(Vector3 to, LayerMask layerMask)
     {
-        for (int i = 0; i < tankStats.bulletsPerShot; i++)
+        foreach (WeaponSlot weaponSlot in weaponSlots)
         {
-            foreach (GameObject shootPosition in shootPositions)
+            for (int i = 0; i < weaponSlot.weaponUpgrade.bulletsPerShot; i++)
             {
                 GameObject bullet = Instantiate(projectile);
 
                 Projectile projectileScript = bullet.GetComponent<Projectile>();
+                
+                projectileScript.Shoot(
+                    weaponSlot.shootPosition.transform.position, 
+                    to, 
+                    weaponSlot.weaponUpgrade.bulletSpeed        * weaponStatMultipiers.bulletSpeed, 
+                    weaponSlot.weaponUpgrade.bulletLifetime     * weaponStatMultipiers.bulletLifetime, 
+                    weaponSlot.weaponUpgrade.bulletSpread       * weaponStatMultipiers.bulletSpread,  
+                    layerMask, 
+                    10
+                    );
 
-                projectileScript.Shoot(shootPosition.transform.position, to, tankStats.bulletSpeed, tankStats.bulletLifetime, tankStats.bulletSpread, layerMask, 10);
                 projectileScript.onHit += (RaycastHit hit) =>
                 {
                     if (hit.transform.gameObject != null)
@@ -103,13 +145,56 @@ public class Tank : MonoBehaviour
                         HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
                         if (enemyHealthComponent != null)
                         {
-                            enemyHealthComponent?.TakeDamage(tankStats.bulletDamage);
+                            enemyHealthComponent?.TakeDamage(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
                         }
                     }
                 };
             }
-
         }
+    }
 
+
+    public void LoadVehicle(VehicleUpgrade vehicle)
+    {
+        currentVehicle = vehicle;
+
+        GameObject vehicleMesh = transform.Find("VehicleMesh").gameObject;
+        vehicleMesh.GetComponent<MeshFilter>().mesh = currentVehicle.vehicleMesh;
+        vehicleMesh.GetComponent<MeshRenderer>().material = currentVehicle.vehicleMaterial;
+
+        vehicleMesh.transform.localPosition = currentVehicle.positionOffset;
+        vehicleMesh.transform.localEulerAngles = currentVehicle.rotationOffset;
+        vehicleMesh.transform.localScale = currentVehicle.scale;
+
+        GetComponent<Suspension>().mu = currentVehicle.sidewaysFriction;
+
+        RefreshStats();
+    }
+
+    
+    #nullable enable
+    public void LoadWeapon(WeaponSlot weaponSlot, WeaponUpgrade? weapon)
+    {
+        if (weapon != null)
+        {
+            weaponSlot.weaponUpgrade = weapon;
+
+            print("THE DEMONS");
+        }
+        
+        GameObject weaponMesh = weaponSlot.weaponAxis.transform.Find("WeaponMesh").gameObject;
+        weaponMesh.GetComponent<MeshFilter>().mesh = weaponSlot.weaponUpgrade.weaponMesh;
+        weaponMesh.GetComponent<MeshRenderer>().material = weaponSlot.weaponUpgrade.weaponMaterial;
+        weaponMesh.transform.localPosition = weaponSlot.weaponUpgrade.positionOffset;
+        weaponMesh.transform.localEulerAngles = weaponSlot.weaponUpgrade.rotationOffset;
+        weaponMesh.transform.localScale = weaponSlot.weaponUpgrade.scale;
+
+        RefreshStats();
+    }
+
+    public void RefreshStats()
+    {
+        healthComponent.maxHealth = currentVehicle.health * statMultipliers.health;
+        tankStats.vehicleSpeed = currentVehicle.speed * statMultipliers.vehicleSpeed;
     }
 }

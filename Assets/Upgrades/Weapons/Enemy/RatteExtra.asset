@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
+  m_Name: RatteExtra
+  m_EditorClassIdentifier: 
+  firerate: 0.5
+  bulletDamage: 50
+  bulletSpeed: 1000
+  bulletSpread: 0.02
+  bulletLifetime: 3
+  bulletsPerShot: 1
+  weaponMesh: {fileID: -1550514412580984892, guid: 55fd4f24b9f7c4abd8ed56e48ea0abba, type: 3}
+  weaponMaterial: {fileID: 2100000, guid: 273ea68cc17d94f13ad35dcb46370637, type: 2}
+  positionOffset: {x: 4.31, y: -0.08, z: -3.07}
+  rotationOffset: {x: 0, y: -90, z: 0}
+  scale: {x: 1, y: 1, z: 1}
