@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-
 public class Suspension : MonoBehaviour
 {
 
@@ -14,6 +13,8 @@ public class Suspension : MonoBehaviour
     public float mu = 1;
     public float rollResistance = 0.1f;
 
+    public float timer = 0f;
+    public float flipTime = 5f;
     public float length = 10;
     public Vector3[] wheelPositions;
     private float[] lengths;
@@ -23,7 +24,6 @@ public class Suspension : MonoBehaviour
     void Start()
     {
         lengths = new float[wheelPositions.Length];
-
     }
 
     // Update is called once per frame
@@ -74,6 +74,7 @@ public class Suspension : MonoBehaviour
         }
         if (isGrounded)
         {
+            timer = 0f;
             float frictionForce = mu * normalForce;
             Vector3 localVelocity1 = transform.InverseTransformDirection(rigidBody.linearVelocity);
             Vector3 localVelocity2 = transform.InverseTransformDirection(rigidBody.linearVelocity);
@@ -94,7 +95,14 @@ public class Suspension : MonoBehaviour
 
             rigidBody.AddForce(-lateralVelocity * frictionForce * Time.deltaTime - forwardVelocity * rigidBody.mass * 9.81f * rollResistance * Time.deltaTime);
             rigidBody.AddTorque(-lateralAngularVelocity * rigidBody.mass * 9.81f * rollResistance * Time.deltaTime);
-
+        } else
+        {
+            timer += Time.deltaTime;
+            if (timer >= flipTime)
+            {
+                timer = 0f;
+                LeanTween.rotate(gameObject, Vector3.zero, 1f);
+            }
         }
     }
 

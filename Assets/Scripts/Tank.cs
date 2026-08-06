@@ -37,7 +37,6 @@ public class Tank : MonoBehaviour
 
     public Rigidbody rigidBody;
 
-    public GameObject projectile;
 
     public HealthComponent healthComponent;
 
@@ -124,7 +123,7 @@ public class Tank : MonoBehaviour
         {
             for (int i = 0; i < weaponSlot.weaponUpgrade.bulletsPerShot; i++)
             {
-                GameObject bullet = Instantiate(projectile);
+                GameObject bullet = Instantiate(weaponSlot.weaponUpgrade.projectile);
 
                 Projectile projectileScript = bullet.GetComponent<Projectile>();
                 
@@ -152,6 +151,7 @@ public class Tank : MonoBehaviour
             }
         }
     }
+
 
 
     public void LoadVehicle(VehicleUpgrade vehicle)

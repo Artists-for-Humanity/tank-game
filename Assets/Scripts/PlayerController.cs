@@ -14,8 +14,6 @@ using Unity.XR.OpenVR;
 
 public class PlayerController : Tank
 {
-
-
     public Camera currentCamera;
 
     private InputAction moveAction;
@@ -57,7 +55,6 @@ public class PlayerController : Tank
 
         if (moveDirection != Vector2.zero)
         {
-
             Vector3 baseDirection = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
             RotateBase(baseDirection);
 
@@ -65,9 +62,7 @@ public class PlayerController : Tank
             {
                 Move(transform.forward);
             }
-
         }
-
 
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit mouseHit;
@@ -78,7 +73,7 @@ public class PlayerController : Tank
         {
             to = mouseHit.point;
         }
-        
+
         bool isAttacking = attackAction.ReadValue<float>() == 1.0f;
         if (isAttacking && attackTimer <= 0.0f)
         {
@@ -86,7 +81,6 @@ public class PlayerController : Tank
 
             ShootGun(to, 1 << gameObject.layer);
         }
-
 
         Vector3 turretDirection = ray.direction;
         turretDirection.y = 0;

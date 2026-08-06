@@ -9,6 +9,20 @@ public static class UIManager
     public static bool upgradeUIEnabled = true;
     public static void SetUpgradeUIEnabled(bool enabled)
     {
+        GameObject upgradeUI = GameObject.Find("UpgradeUI");
+        GameObject uContainer = upgradeUI.transform.Find("UpgradeContainer").gameObject;
+       
+        if (enabled)
+        {
+            uContainer.GetComponent<RectTransform>().LeanMoveY(-80f, 0.25f);
+        } else
+        {
+            uContainer.GetComponent<RectTransform>().LeanMoveY(300f, 0.25f);
+        }
+    }
+
+    public static void SetStatUIEnabled(bool enabled)
+    {
         upgradeUIEnabled = enabled;
         GameObject upgradeUI = GameObject.Find("UpgradeUI");
         GameObject sBackground = upgradeUI.transform.Find("StatBackground").gameObject;
@@ -21,11 +35,11 @@ public static class UIManager
             sBackground.transform.LeanMoveX(-500f, 0.25f);
         }
     }
-    public static void ToggleUpgradeUI()
+    public static void ToggleStatUI()
     {
         upgradeUIEnabled = !upgradeUIEnabled;
 
-        SetUpgradeUIEnabled(upgradeUIEnabled);
+        SetStatUIEnabled(upgradeUIEnabled);
     }
 
     public static void UpdateHealthBar(float percentage)

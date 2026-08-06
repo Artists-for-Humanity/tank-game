@@ -13,6 +13,7 @@ public class WeaponUpgrade : ScriptableObject
 
     public Mesh weaponMesh;
     public Material weaponMaterial;
+    public GameObject projectile;
     
 
     public Vector3 positionOffset = Vector3.zero;

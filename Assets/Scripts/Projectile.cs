@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 velocity;
-    private Vector3 acceleration = Physics.gravity * 9.81f;
+    private Vector3 acceleration = Vector3.zero;
 
     private float lifetime = 0.0f;
     public float maxLifetime = 10.0f;
@@ -44,6 +44,8 @@ public class Projectile : MonoBehaviour
         velocity = direction * speed;
         ignore = layerMask;
         penetration = pen;
+
+        maxLifetime = lifetime;
 
         transform.position = at;
         transform.LookAt(to);

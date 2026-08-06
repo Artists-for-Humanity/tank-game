@@ -252,8 +252,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 1, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.5, y: 2, z: 5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &2072765246359064587
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -298,18 +298,20 @@ MonoBehaviour:
   springCoefficient: 19000
   mu: 0.9
   rollResistance: 1
+  timer: 0
+  flipTime: 5
   length: 2.8
   wheelPositions:
-  - {x: -1.5, y: 0.5, z: -2}
-  - {x: 1.5, y: 0.5, z: -2}
-  - {x: -1.5, y: 0.5, z: 2}
-  - {x: 1.5, y: 0.5, z: 2}
-  - {x: 1.5, y: 0.5, z: 1}
+  - {x: -1.5, y: 0.5, z: -3}
+  - {x: 1.5, y: 0.5, z: -3}
+  - {x: -1.5, y: 0.5, z: 3}
+  - {x: 1.5, y: 0.5, z: 3}
+  - {x: 1.5, y: 0.5, z: 1.5}
   - {x: 1.5, y: 0.5, z: 0}
-  - {x: 1.5, y: 0.5, z: -1}
-  - {x: -1.5, y: 0.5, z: 1}
+  - {x: 1.5, y: 0.5, z: -1.5}
+  - {x: -1.5, y: 0.5, z: 1.5}
   - {x: -1.5, y: 0.5, z: 0}
-  - {x: -1.5, y: 0.5, z: -1}
+  - {x: -1.5, y: 0.5, z: -1.5}
   isGrounded: 0
 --- !u!114 &8401233333633956389
 MonoBehaviour:

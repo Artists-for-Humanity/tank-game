@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
         if (openMenuAction.WasPressedThisFrame())
         {
-            UIManager.ToggleUpgradeUI();
+            UIManager.ToggleStatUI();
         }
     }
 

@@ -5,6 +5,7 @@ using TankGame.Events;
 using UnityEditor;
 using Mono.Cecil;
 using System;
+using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class LevelManager : MonoBehaviour
 
     private static LevelManager _instance;
     public static LevelManager Instance { get { return _instance; } }
+    private InputAction upgradeSelectAction;
 
     private void Awake()
     {
@@ -64,36 +66,65 @@ public class LevelManager : MonoBehaviour
 
         healthStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().statMultipliers.health = 1f * newValue/2.5f;
+            player.GetComponent<PlayerController>().statMultipliers.health = 1f * newValue / 2.5f;
             player.GetComponent<PlayerController>().RefreshStats();
         };
         bulletDamageStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletDamage = 1f + newValue/5f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletDamage = 1f + newValue / 5f;
             player.GetComponent<PlayerController>().RefreshStats();
-        };;
+        }; ;
         bulletSpeedStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletSpeed = 1f + newValue/10f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.bulletSpeed = 1f + newValue / 10f;
             player.GetComponent<PlayerController>().RefreshStats();
-        };;
+        }; ;
         firerateStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().weaponStatMultipiers.firerate = 1f - newValue/20f;
+            player.GetComponent<PlayerController>().weaponStatMultipiers.firerate = 1f - newValue / 20f;
             player.GetComponent<PlayerController>().RefreshStats();
-        };;
+        }; ;
         vehicleSpeedStatBar.onValueChanged = (float oldValue, float newValue) =>
         {
-            player.GetComponent<PlayerController>().statMultipliers.vehicleSpeed = 1f + newValue/10f;
+            player.GetComponent<PlayerController>().statMultipliers.vehicleSpeed = 1f + newValue / 10f;
             player.GetComponent<PlayerController>().RefreshStats();
-        };;
+        };
 
+        upgradeSelectAction = InputSystem.actions.FindAction("Select");
+
+
+        UIManager.SetUpgradeUIEnabled(false);
 
         onLevelUp += () =>
         {
-            if (playerLevel % 5f == 0f)
+            if (playerLevel == 5)
             {
-                weaponUpgradeBranch = gunBranch;
+                UIManager.SetUpgradeUIEnabled(true);
+                upgradeSelectAction.started += (InputAction.CallbackContext callbackContext) =>
+                {
+                    int selection = (int)upgradeSelectAction.ReadValue<float>();
+                    switch (selection)
+                    {
+                        case 1:
+                            weaponUpgradeBranch = gunBranch;
+                            break;
+                        case 2:
+                            weaponUpgradeBranch = bigBranch;
+                            break;
+                        case 3:
+                            weaponUpgradeBranch = railBranch;
+                            break;
+                        case 4:
+                            weaponUpgradeBranch = flameBranch;
+                            break;
+                    }
+                    UIManager.SetUpgradeUIEnabled(false);
+                    currentUpgrade = (int)playerLevel / 5 - 1;
+                    player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
+                };
+            }
+            else if (playerLevel % 5f == 0f)
+            {
                 currentUpgrade = (int)playerLevel / 5 - 1;
                 player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
             }
