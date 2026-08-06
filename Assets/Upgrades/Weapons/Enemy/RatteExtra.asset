@@ -20,6 +20,7 @@ MonoBehaviour:
   bulletsPerShot: 1
   weaponMesh: {fileID: -1550514412580984892, guid: 55fd4f24b9f7c4abd8ed56e48ea0abba, type: 3}
   weaponMaterial: {fileID: 2100000, guid: 273ea68cc17d94f13ad35dcb46370637, type: 2}
+  projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   positionOffset: {x: 4.31, y: -0.08, z: -3.07}
   rotationOffset: {x: 0, y: -90, z: 0}
   scale: {x: 1, y: 1, z: 1}

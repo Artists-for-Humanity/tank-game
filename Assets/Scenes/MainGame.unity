@@ -4921,7 +4921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1327053540}
-  projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   healthComponent: {fileID: 1327053543}
   baseRotationSpeed: 1
   turretRotationSpeed: 3
