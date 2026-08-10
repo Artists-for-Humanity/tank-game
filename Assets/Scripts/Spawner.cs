@@ -96,15 +96,7 @@ public class Spawner : MonoBehaviour
 
         GameObject newEnemy = Instantiate(enemySpawnType.prefab, enemySpawnPositions[randomInteger].transform.position, Quaternion.identity);
         
-        newEnemy.GetComponent<EnemyAI>().RefreshStats();
-        newEnemy.GetComponent<EnemyAI>().follow = player;
-        newEnemy.GetComponent<HealthComponent>().onDied += () =>
-        {
-            Destroy(newEnemy);
-
-            LevelManager.Instance.AddExperience(500f);
-        };
-
+        
 
     }
 }

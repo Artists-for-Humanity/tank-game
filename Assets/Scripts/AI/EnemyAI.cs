@@ -32,6 +32,16 @@ public class EnemyAI : Tank
         {
             LoadWeapon(weaponSlot, null);
         }
+
+        RefreshStats();
+        follow = GameObject.FindGameObjectWithTag("Player");
+        healthComponent.onDied += () =>
+        {
+            Destroy(gameObject);
+
+            LevelManager.Instance.AddExperience(500f);
+        };
+
     }
 
     // Update is called once per frame
