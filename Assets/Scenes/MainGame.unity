@@ -7453,7 +7453,7 @@ MonoBehaviour:
   - {fileID: 1654716687}
   - {fileID: 1190607657}
   enemySpawnTypes:
-  - prefab: {fileID: 8247867217570180762, guid: 72b1677f2766e4b739cb20fadc6c0b50, type: 3}
+  - prefab: {fileID: 8247867217570180762, guid: 7cfabbdeb751b4fa9a36e293615940ab, type: 3}
     maxCount: 100
     rarity: 1
   - prefab: {fileID: 7056281243981562953, guid: 02d5791d5cf4a42ef8455a85d4a02514, type: 3}
