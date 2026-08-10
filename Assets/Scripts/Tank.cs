@@ -79,7 +79,7 @@ public class Tank : MonoBehaviour
 
     protected void Move(Vector3 direction)
     {
-        rigidBody.linearVelocity += direction * Time.deltaTime * tankStats.vehicleSpeed;
+        rigidBody.linearVelocity += direction * Time.fixedDeltaTime * tankStats.vehicleSpeed;
     }
 
     protected void RotateBase(Vector3 direction)
@@ -113,10 +113,11 @@ public class Tank : MonoBehaviour
         Quaternion rotationTarget = Quaternion.LookRotation(direction);
         foreach (WeaponSlot weaponSlot in weaponSlots)
         {
-            weaponSlot.weaponAxis.transform.rotation = Quaternion.Slerp(weaponSlot.weaponAxis.transform.rotation, rotationTarget, Time.deltaTime * turretRotationSpeed);
+            weaponSlot.weaponAxis.transform.rotation = Quaternion.Slerp(weaponSlot.weaponAxis.transform.rotation, rotationTarget, Time.fixedDeltaTime * turretRotationSpeed);
             weaponSlot.weaponAxis.transform.localEulerAngles = new Vector3(0, weaponSlot.weaponAxis.transform.localEulerAngles.y, 0);
         }
     }
+
     protected void ShootGun(Vector3 to, LayerMask layerMask)
     {
         foreach (WeaponSlot weaponSlot in weaponSlots)
@@ -178,8 +179,6 @@ public class Tank : MonoBehaviour
         if (weapon != null)
         {
             weaponSlot.weaponUpgrade = weapon;
-
-            print("THE DEMONS");
         }
         
         GameObject weaponMesh = weaponSlot.weaponAxis.transform.Find("WeaponMesh").gameObject;

@@ -7,6 +7,13 @@ using UnityEngine.UI;
 public static class UIManager
 {
     public static bool upgradeUIEnabled = true;
+    public static void UpdateWaveUI(int wave)
+    {
+         GameObject combatUI = GameObject.Find("CombatUI");
+        GameObject waveText = combatUI.transform.Find("WaveText").gameObject;
+
+        waveText.GetComponent<TextMeshProUGUI>().text = "You are on wave: " + wave.ToString() + "!";
+    }
     public static void SetUpgradeUIEnabled(bool enabled)
     {
         GameObject upgradeUI = GameObject.Find("UpgradeUI");

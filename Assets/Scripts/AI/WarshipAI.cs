@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class WarshipAI : MonoBehaviour
+public class WarshipAI : EnemyAI
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void UpdateFollow()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.UpdateFollow();
     }
 }

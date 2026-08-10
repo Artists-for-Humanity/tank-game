@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +13,7 @@ public class EnemySpawnType
     public int count = 0;
     public int maxCount;
     public float rarity;
+    public int spawnsAfterWave = 0;
 }
 
 public class Spawner : MonoBehaviour
@@ -30,6 +33,9 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     public EnemySpawnType[] enemySpawnTypes;
 
+    public float waveLengthSeconds = 1f;
+    private float waveEndTimer = 0f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -37,21 +43,42 @@ public class Spawner : MonoBehaviour
         onWaveEnded = OnWaveEnded;
         onWaveStarted = OnWaveStarted;
 
-        enemiesLeft = 10;
+        enemiesLeft = CalculateNumEnemies(wave);
 
         player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    int CalculateNumEnemies(int wave)
+    {
+        return (wave) * 5;
     }
 
 
     void Update()
     {
         timer += Time.deltaTime;
+        waveEndTimer += Time.deltaTime;
 
-        if (timer > enemySpawnInterval)
+        if (timer > enemySpawnInterval && enemiesLeft >= 0)
         {
             timer = 0f;
-            SpawnEnemy(GetNextEnemy());
-            print("sugma");
+            if (TrySpawnEnemy(GetNextEnemy()))
+            {
+                enemiesLeft--;
+            }
+        }
+
+        if (waveEndTimer > waveLengthSeconds)
+        {
+            print("gooo");
+            waveEndTimer = 0f;
+            wave++;
+            UIManager.UpdateWaveUI(wave);
+
+            enemiesLeft += CalculateNumEnemies(wave);
+
+            onWaveEnded.Invoke(wave);
+            onWaveStarted.Invoke(wave);
         }
     }
 
@@ -61,13 +88,25 @@ public class Spawner : MonoBehaviour
         EnemySpawnType chosenType = null;
         float lowest = math.INFINITY;
 
-        foreach (EnemySpawnType enemySpawnType in enemySpawnTypes)
+        List<EnemySpawnType> possibleSpawns = new List<EnemySpawnType>();
+
+        foreach (EnemySpawnType spawn in enemySpawnTypes)
         {
+            if (spawn.spawnsAfterWave <= wave && spawn.count < spawn.maxCount)
+            {
+                possibleSpawns.Add(spawn);
+            }
+        }
+
+
+        for (int i = 0; i < possibleSpawns.Count; i++)
+        {
+            EnemySpawnType enemySpawnType = possibleSpawns[i];
+
             if (randomNum <= enemySpawnType.rarity && enemySpawnType.rarity <= lowest)
             {
                 chosenType = enemySpawnType;
                 lowest = enemySpawnType.rarity;
-
             }
         }
 
@@ -84,19 +123,16 @@ public class Spawner : MonoBehaviour
 
     }
 
-    void SpawnEnemy(EnemySpawnType enemySpawnType)
+    bool TrySpawnEnemy(EnemySpawnType enemySpawnType)
     {
-        print(enemySpawnType.count.ToString());
-
-        if (enemySpawnType.count >= enemySpawnType.maxCount) { return; }
+        if (enemySpawnType.count >= enemySpawnType.maxCount) { return false; }
 
         enemySpawnType.count++;
 
         int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
 
         GameObject newEnemy = Instantiate(enemySpawnType.prefab, enemySpawnPositions[randomInteger].transform.position, Quaternion.identity);
-        
-        
 
+        return true;
     }
 }

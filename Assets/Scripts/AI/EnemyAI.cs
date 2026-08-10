@@ -34,7 +34,7 @@ public class EnemyAI : Tank
         }
 
         RefreshStats();
-        follow = GameObject.FindGameObjectWithTag("Player");
+        UpdateFollow();
         healthComponent.onDied += () =>
         {
             Destroy(gameObject);
@@ -43,8 +43,11 @@ public class EnemyAI : Tank
         };
 
     }
+    protected virtual void UpdateFollow()
+    {
+        follow = GameObject.FindGameObjectWithTag("Player");
+    }
 
-    // Update is called once per frame
     void Update()
     {
         if (healthComponent.isDead) { return; }

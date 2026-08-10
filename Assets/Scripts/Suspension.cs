@@ -39,9 +39,7 @@ public class Suspension : MonoBehaviour
 
             Vector3 goal = worldPosition - rigidBody.transform.up * length;
 
-
             bool detectGround = Physics.Raycast(worldPosition, -rigidBody.transform.up, out hit, length);
-
 
             if (detectGround)
             {
@@ -55,9 +53,8 @@ public class Suspension : MonoBehaviour
 
                 normalForce += springForceStrength;
                 //wheels[i].GetComponent<Rigidbody>().AddForceAtPosition(-springDirection * force * Time.deltaTime, worldPosition);
-                rigidBody.AddForceAtPosition(-springDirection * springForceStrength * Time.deltaTime, worldPosition);
+                rigidBody.AddForceAtPosition(-springDirection * springForceStrength * Time.fixedDeltaTime, worldPosition);
             }
-
 
             if (detectGround)
             {
@@ -68,8 +65,6 @@ public class Suspension : MonoBehaviour
             {
                 lengths[i] = length;
             }
-
-
             //wheels[i].transform.localPosition = new Vector3(wheelPositions[i].x, wheels[i].transform.localPosition.y, wheelPositions[i].z);
         }
         if (isGrounded)
@@ -93,15 +88,15 @@ public class Suspension : MonoBehaviour
 
             Vector3 lateralAngularVelocity = transform.TransformDirection(localAngularVelocity);
 
-            rigidBody.AddForce(-lateralVelocity * frictionForce * Time.deltaTime - forwardVelocity * rigidBody.mass * 9.81f * rollResistance * Time.deltaTime);
-            rigidBody.AddTorque(-lateralAngularVelocity * rigidBody.mass * 9.81f * rollResistance * Time.deltaTime);
+            rigidBody.AddForce(-lateralVelocity * frictionForce * Time.fixedDeltaTime - forwardVelocity * rigidBody.mass * 9.81f * rollResistance * Time.fixedDeltaTime);
+            rigidBody.AddTorque(-lateralAngularVelocity * rigidBody.mass * 9.81f * rollResistance * Time.fixedDeltaTime);
         } else
         {
             timer += Time.deltaTime;
             if (timer >= flipTime)
             {
                 timer = 0f;
-                LeanTween.rotate(gameObject, Vector3.zero, 1f);
+                LeanTween.rotate(gameObject, Vector3.zero, 0.5f);
             }
         }
     }
