@@ -45,6 +45,14 @@ public static class UIManager
     public static void ToggleStatUI()
     {
         upgradeUIEnabled = !upgradeUIEnabled;
+        if (upgradeUIEnabled)
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        } else
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        }
+        
 
         SetStatUIEnabled(upgradeUIEnabled);
     }
@@ -63,7 +71,6 @@ public static class UIManager
         GameObject experienceBar = combatUI.transform.Find("ExperienceBar").gameObject;
         experienceBar.GetComponent<Slider>().value = percentage;
         experienceBar.transform.Find("LevelText").GetComponent<TextMeshProUGUI>().text = level.ToString();
-
     }
 
     public static void UpdateReloadBar(float percentage)
@@ -72,7 +79,13 @@ public static class UIManager
         GameObject crosshair = combatUI.transform.Find("Crosshair").gameObject;
 
         GameObject reloadBar = crosshair.transform.Find("ReloadBar").gameObject;
-        reloadBar.GetComponent<Slider>().value = 1 - percentage;
+        Slider reloadSlider = reloadBar.GetComponent<Slider>();
+
+        LeanTween.value(reloadBar, reloadSlider.value, 1f - percentage, 0.1f)
+            .setOnUpdate((float value) =>
+            {
+                reloadSlider.value = value;
+            });
     }
 
     public static void SetGameOverUIEnabled(bool enabled)

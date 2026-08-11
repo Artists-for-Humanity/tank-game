@@ -41,6 +41,9 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get { return _instance; } }
     private InputAction upgradeSelectAction;
 
+
+    bool upgradeLocked = false;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -97,10 +100,13 @@ public class LevelManager : MonoBehaviour
 
         onLevelUp += () =>
         {
-            if (playerLevel == 5)
+            if (playerLevel == 5 && !upgradeLocked)
             {
+                upgradeLocked = true;
                 UIManager.SetUpgradeUIEnabled(true);
-                upgradeSelectAction.started += (InputAction.CallbackContext callbackContext) =>
+                
+                Action<InputAction.CallbackContext> func = null;
+                func = (InputAction.CallbackContext callbackContext) =>
                 {
                     int selection = (int)upgradeSelectAction.ReadValue<float>();
                     switch (selection)
@@ -118,12 +124,17 @@ public class LevelManager : MonoBehaviour
                             weaponUpgradeBranch = flameBranch;
                             break;
                     }
+
                     UIManager.SetUpgradeUIEnabled(false);
                     currentUpgrade = (int)playerLevel / 5 - 1;
                     player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
+
+                    upgradeSelectAction.started -= func;
                 };
+
+                upgradeSelectAction.started += func;
             }
-            else if (playerLevel % 5f == 0f)
+            else if (playerLevel % 10f == 0f && upgradeLocked)
             {
                 currentUpgrade = (int)playerLevel / 5 - 1;
                 player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
@@ -131,6 +142,29 @@ public class LevelManager : MonoBehaviour
         };
     }
 
+    void OnUpgradeSelected(InputAction.CallbackContext callbackContext)
+    {
+        int selection = (int)upgradeSelectAction.ReadValue<float>();
+        switch (selection)
+        {
+            case 1:
+                weaponUpgradeBranch = gunBranch;
+                break;
+            case 2:
+                weaponUpgradeBranch = bigBranch;
+                break;
+            case 3:
+                weaponUpgradeBranch = railBranch;
+                break;
+            case 4:
+                weaponUpgradeBranch = flameBranch;
+                break;
+        }
+
+        UIManager.SetUpgradeUIEnabled(false);
+        currentUpgrade = (int)playerLevel / 5 - 1;
+        player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
+    }
     public float GetPlayerLevelUpRequirement(float level)
     {
         return math.pow((level + 1f) * experienceLinearRate, 1.0f + level * experienceExponentRate);

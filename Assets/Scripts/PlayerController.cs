@@ -60,7 +60,6 @@ public class PlayerController : Tank
 
             if (isGrounded)
             {
-                
                 Move(transform.forward * Vector3.Dot(transform.forward, baseDirection));
             }
         }

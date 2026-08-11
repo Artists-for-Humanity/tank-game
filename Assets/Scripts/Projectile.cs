@@ -8,6 +8,8 @@ using UnityEditor.Rendering.Analytics;
 using System;
 using TankGame.Events;
 using System.Diagnostics;
+using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 public class Projectile : MonoBehaviour
 {
@@ -81,23 +83,27 @@ public class Projectile : MonoBehaviour
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
         int pierceCount = 0;
-
+       
+        
         foreach (RaycastHit hit in hits)
-        {
+        {   
+            
+
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
             {
                 isHit = true;
                 Destroy(gameObject, 5f);
-                return;
+                break;
             }
 
             if (pierceCount >= penetration)
             {
                 isHit = true;
                 Destroy(gameObject, 5f);
-                return;
+                break;
             }
 
+            
             pierceCount++;
             onHit?.Invoke(hit);
 

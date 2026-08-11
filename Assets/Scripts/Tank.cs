@@ -138,6 +138,9 @@ public class Tank : MonoBehaviour
                     10
                     );
 
+            HashSet<HealthComponent> alreadyHit = new HashSet<HealthComponent>();
+
+    
                 projectileScript.onHit += (RaycastHit hit) =>
                 {
                     if (hit.transform.gameObject != null)
@@ -145,7 +148,12 @@ public class Tank : MonoBehaviour
                         HealthComponent enemyHealthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
                         if (enemyHealthComponent != null)
                         {
+                            if (!alreadyHit.Add(enemyHealthComponent))
+                            {
+                                return;
+                            }
                             enemyHealthComponent?.TakeDamage(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
+                            print(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
                         }
                     }
                 };

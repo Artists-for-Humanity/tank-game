@@ -431,7 +431,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1487101542848474000}
-  projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   healthComponent: {fileID: 78861619992502305}
   baseRotationSpeed: 5
   turretRotationSpeed: 5
@@ -444,7 +443,7 @@ MonoBehaviour:
     health: 1
     vehicleSpeed: 1
   weaponStatMultipiers:
-    bulletDamage: 0.05
+    bulletDamage: 0.01
     bulletSpeed: 0.25
     firerate: 0.5
     bulletLifetime: 1

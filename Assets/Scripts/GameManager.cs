@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private InputAction openMenuAction;
 
-
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 

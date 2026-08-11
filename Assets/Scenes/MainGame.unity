@@ -2173,7 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1327053534}
-  cameraYOffset: 3
+  cameraYOffset: 5
   sensitivity: 1
   zoomSensitivity: 5
   crosshair: {fileID: 489828821}
@@ -6763,7 +6763,7 @@ MonoBehaviour:
   weaponSlots:
   - weaponAxis: {fileID: 2066851207}
     shootPosition: {fileID: 96710431}
-    weaponUpgrade: {fileID: 11400000, guid: 12b35c167f7a1421ba0848e1ce01958e, type: 2}
+    weaponUpgrade: {fileID: 11400000, guid: d6c74c58a3a5e4d7f8449bda37428d12, type: 2}
   statMultipliers:
     health: 1
     vehicleSpeed: 1
