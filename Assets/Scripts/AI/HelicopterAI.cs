@@ -62,7 +62,7 @@ public class HelicopterAI : MonoBehaviour
 
     void Update()
     {
-        rotatePercent += Time.deltaTime;
+        rotatePercent += Time.deltaTime * 4f;
         rotatePercent %= 1f;
 
         attackTimer += Time.deltaTime;

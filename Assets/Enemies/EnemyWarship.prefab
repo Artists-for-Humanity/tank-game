@@ -1051,13 +1051,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 2072765246359064587}
-  damping: 19400
+  damping: 9000
   springCoefficient: 190000
   mu: 0.9
   rollResistance: 1
   timer: 0
   flipTime: 5
-  length: 12
+  length: 8
   wheelPositions:
   - {x: -10, y: 3, z: -60}
   - {x: 10, y: 3, z: -60}

@@ -61,7 +61,7 @@ public class HealthComponent : MonoBehaviour
             regenTickTimer += Time.deltaTime;
             if (regenTickTimer > regenTickInterval)
             {
-                Heal(regenPerTick);
+                Heal(regenPerTick / 100f * maxHealth);
                 regenTickTimer = 0f;
             }
         }

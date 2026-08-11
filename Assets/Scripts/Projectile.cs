@@ -64,7 +64,7 @@ public class Projectile : MonoBehaviour
         {
             isHit = true;
 
-            Destroy(gameObject);
+            Destroy(gameObject, 5f);
             return;
         }
         Vector3 lastPosition = transform.position;
@@ -87,19 +87,21 @@ public class Projectile : MonoBehaviour
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
             {
                 isHit = true;
-                Destroy(gameObject);
+                Destroy(gameObject, 5f);
                 return;
             }
 
             if (pierceCount >= penetration)
             {
                 isHit = true;
-                Destroy(gameObject);
+                Destroy(gameObject, 5f);
                 return;
             }
 
             pierceCount++;
             onHit?.Invoke(hit);
+
+            transform.position = hit.point;
         }
         
     }

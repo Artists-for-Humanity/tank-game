@@ -85,7 +85,7 @@ public class Spawner : MonoBehaviour
     EnemySpawnType GetNextEnemy()
     {
         float randomNum = UnityEngine.Random.Range(0f, 1f);
-        EnemySpawnType chosenType = null;
+        EnemySpawnType chosenType = enemySpawnTypes[0];
         float lowest = math.INFINITY;
 
         List<EnemySpawnType> possibleSpawns = new List<EnemySpawnType>();

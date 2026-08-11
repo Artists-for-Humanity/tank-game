@@ -16,7 +16,7 @@ MonoBehaviour:
   bulletDamage: 5
   bulletSpeed: 300
   bulletSpread: 0.05
-  bulletLifetime: 0.05
+  bulletLifetime: 0.2
   bulletsPerShot: 4
   weaponMesh: {fileID: 4493585093827132993, guid: 7f14f964d108a420a8bb11f12409bd5c, type: 3}
   weaponMaterial: {fileID: 2100000, guid: c049fbe0b9169493b9462738aeedbc8a, type: 2}
