@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Big2
   m_EditorClassIdentifier: 
   firerate: 1
-  bulletDamage: 20
+  bulletDamage: 50
   bulletSpeed: 400
   bulletSpread: 0.05
   bulletLifetime: 1

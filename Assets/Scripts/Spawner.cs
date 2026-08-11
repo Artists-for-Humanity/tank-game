@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
 
     int CalculateNumEnemies(int wave)
     {
-        return (wave) * 5;
+        return (wave) * 2;
     }
 
 

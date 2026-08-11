@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Big4
   m_EditorClassIdentifier: 
   firerate: 1
-  bulletDamage: 60
-  bulletSpeed: 400
+  bulletDamage: 50
+  bulletSpeed: 800
   bulletSpread: 0.05
   bulletLifetime: 1
   bulletsPerShot: 16
