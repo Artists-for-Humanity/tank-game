@@ -32,7 +32,7 @@ public class HelicopterAI : MonoBehaviour
     [SerializeField]
     WeaponStats helicopterWeaponStats;
 
-
+    public float experience;
     float attackTimer = 0f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,7 +56,7 @@ public class HelicopterAI : MonoBehaviour
         {
             Destroy(gameObject);
 
-            LevelManager.Instance.AddExperience(1000f);
+            LevelManager.Instance.AddExperience(experience);
         };
     }
 

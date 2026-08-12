@@ -15,7 +15,7 @@ MonoBehaviour:
   firerate: 0.1
   bulletDamage: 10
   bulletSpeed: 450
-  bulletSpread: 0.1
+  bulletSpread: 0.05
   bulletLifetime: 0.2
   bulletsPerShot: 4
   penetration: 2

@@ -653,3 +653,4 @@ MonoBehaviour:
     bulletLifetime: 5
     bulletSpread: 0.05
     bulletsPerShot: 1
+  experience: 1000

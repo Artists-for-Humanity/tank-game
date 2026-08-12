@@ -44,6 +44,7 @@ public class Tank : MonoBehaviour
     public float turretRotationSpeed = 5;
 
     protected float attackTimer = 0.0f;
+    
 
     public VehicleUpgrade currentVehicle;
 

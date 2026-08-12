@@ -453,3 +453,4 @@ MonoBehaviour:
     health: 100
     vehicleSpeed: 100
   follow: {fileID: 0}
+  experience: 100

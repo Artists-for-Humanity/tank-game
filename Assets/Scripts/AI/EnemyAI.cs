@@ -9,6 +9,7 @@ public class EnemyAI : Tank
     private NavMeshAgent agent;
     public GameObject follow;
     
+    public float experience = 1f;
 
     private float updateInterval = 1.0f;
     private float timer = 0.0f;
@@ -39,7 +40,7 @@ public class EnemyAI : Tank
         {
             Destroy(gameObject);
 
-            LevelManager.Instance.AddExperience(50000000f);
+            LevelManager.Instance.AddExperience(experience);
         };
 
     }

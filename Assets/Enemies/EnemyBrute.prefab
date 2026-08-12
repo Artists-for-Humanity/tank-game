@@ -389,6 +389,7 @@ MonoBehaviour:
     health: 100
     vehicleSpeed: 100
   follow: {fileID: 0}
+  experience: 200
 --- !u!1 &7444506261441833677
 GameObject:
   m_ObjectHideFlags: 0
