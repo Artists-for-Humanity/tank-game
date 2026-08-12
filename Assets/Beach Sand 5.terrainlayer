@@ -6,8 +6,8 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Olive Green
-  m_DiffuseTexture: {fileID: 2800000, guid: d76c1bf9a440a434a8d5afe942189f91, type: 3}
+  m_Name: Beach Sand 5
+  m_DiffuseTexture: {fileID: 2800000, guid: 333777f0ca4b5479193e97e985565799, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 2, y: 2}
