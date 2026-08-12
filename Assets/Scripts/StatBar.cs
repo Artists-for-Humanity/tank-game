@@ -35,6 +35,12 @@ public class StatBar : MonoBehaviour
 
     void OnButtonClicked()
     {
+        if (!LevelManager.Instance.CanUpgrade())
+        {
+            return;
+        }
+        LevelManager.Instance.DecrementStatPoints();
+        
         float oldValue = value;
         float newValue = math.clamp(value + 1.0f, 0f, maxValue);
 

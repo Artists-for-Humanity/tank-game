@@ -14,6 +14,14 @@ public static class UIManager
 
         waveText.GetComponent<TextMeshProUGUI>().text = "You are on wave: " + wave.ToString() + "!";
     }
+
+    public static void UpdateStatPoints(int amount)
+    {
+        GameObject upgradeUI = GameObject.Find("UpgradeUI");
+        GameObject sBackground = upgradeUI.transform.Find("StatBackground").gameObject;
+        GameObject statpoints = sBackground.transform.Find("StatPoints").gameObject;
+       statpoints.GetComponent<TextMeshProUGUI>().text = "Stat Points: " + amount.ToString();
+    }
     public static void SetUpgradeUIEnabled(bool enabled)
     {
         GameObject upgradeUI = GameObject.Find("UpgradeUI");

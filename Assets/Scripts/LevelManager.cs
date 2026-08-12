@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     private StatBar bulletSpeedStatBar;
     private StatBar firerateStatBar;
     private StatBar vehicleSpeedStatBar;
-
+    public int statPoints = 0;
     private GameObject player;
     public Action onLevelUp;
 
@@ -158,6 +158,15 @@ public class LevelManager : MonoBehaviour
         };
     }
 
+    public bool CanUpgrade()
+    {
+        return statPoints > 0;
+    }
+    public void DecrementStatPoints()
+    {
+        statPoints--;
+        UIManager.UpdateStatPoints(statPoints);
+    }
     void OnUpgradeSelected(InputAction.CallbackContext callbackContext)
     {
         int selection = (int)upgradeSelectAction.ReadValue<float>();
@@ -199,8 +208,13 @@ public class LevelManager : MonoBehaviour
             playerLevel += 1.0f;
             levelUpRequirement = GetPlayerLevelUpRequirement(playerLevel);
             onLevelUp?.Invoke();
+
+            statPoints++;
+            
         }
 
         UIManager.UpdateExperienceBar(playerExperience / levelUpRequirement, playerLevel);
+
+        UIManager.UpdateStatPoints(statPoints);
     }
 }
