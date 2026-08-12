@@ -1,17 +1,7 @@
 
 
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.InputSystem;
-using UnityEngine.Scripting.APIUpdating;
-using Unity.Mathematics;
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
-using System.Threading;
-using UnityEngine.SceneManagement;
-using Unity.XR.OpenVR;
-
 public class PlayerController : Tank
 {
     public Camera currentCamera;

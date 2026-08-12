@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Brute
   m_EditorClassIdentifier: 
   firerate: 0.5
-  bulletDamage: 0.5
+  bulletDamage: 0.25
   bulletSpeed: 300
   bulletSpread: 0.02
   bulletLifetime: 3

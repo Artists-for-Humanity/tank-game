@@ -1,9 +1,5 @@
 using UnityEngine;
 using Unity.Mathematics;
-using UnityEngine.InputSystem.Interactions;
-using TankGame.Events;
-using UnityEditor;
-using Mono.Cecil;
 using System;
 using UnityEngine.InputSystem;
 
@@ -97,7 +93,7 @@ public class LevelManager : MonoBehaviour
 
         upgradeSelectAction = InputSystem.actions.FindAction("Select");
 
-
+        UIManager.SetStatUIEnabled(false);
         UIManager.SetUpgradeUIEnabled(false);
 
         UIManager.SetVehicleUpgradeUIEnabled(true);

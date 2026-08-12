@@ -909,8 +909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e403c2a547f2248d581d82807100de7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50000
-  maxHealth: 50000
+  health: 15000
+  maxHealth: 15000
   hasRegen: 0
   regenPerTick: 0
   regenTickInterval: 0.5
@@ -985,6 +985,7 @@ MonoBehaviour:
     health: 100
     vehicleSpeed: 100
   follow: {fileID: 0}
+  target: {fileID: 0}
   experience: 1500
 --- !u!1 &7444506261441833677
 GameObject:

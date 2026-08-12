@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "TurnCamera",
                     "type": "Button",
                     "id": "3fe86c23-ce8b-4937-84a9-6a65dba457a6",
@@ -90,6 +81,15 @@
                     "name": "Flip",
                     "type": "Button",
                     "id": "dddc75df-9fb7-4b38-b2e5-0bce9976db61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "6c9bb3e3-4b4d-4558-b60c-431c633ad63d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -220,41 +220,19 @@
                 },
                 {
                     "name": "",
-                    "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "daba33a1-ad0c-4742-a909-43ad1cdfbeb6",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "603f3daf-40bd-4854-8724-93e8017f59e3",
-                    "path": "<XRController>/secondaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b13f8272-aae5-4b4b-b89c-5a61d98e0ac7",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TurnCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4be4abcb-da80-4ba6-a3db-fc90372604ed",
+                    "path": "<HID::Logitech Logitech Dual Action>/button8",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -331,7 +309,7 @@
                 {
                     "name": "",
                     "id": "970697e9-945f-4463-826c-ad8802983437",
-                    "path": "<Keyboard>/1",
+                    "path": "<HID::Logitech Logitech Dual Action>/trigger",
                     "interactions": "",
                     "processors": "Scale",
                     "groups": ";Touch",
@@ -342,7 +320,7 @@
                 {
                     "name": "",
                     "id": "7f3a15c4-ff7b-4b16-ae78-ac519b6a0206",
-                    "path": "<Keyboard>/2",
+                    "path": "<HID::Logitech Logitech Dual Action>/button2",
                     "interactions": "",
                     "processors": "Scale(factor=2)",
                     "groups": ";Touch",
@@ -353,7 +331,7 @@
                 {
                     "name": "",
                     "id": "f1331c79-1e5e-4e5a-9f87-fc741ad4d98b",
-                    "path": "<Keyboard>/3",
+                    "path": "<HID::Logitech Logitech Dual Action>/button3",
                     "interactions": "",
                     "processors": "Scale(factor=3)",
                     "groups": ";Touch",
@@ -364,10 +342,54 @@
                 {
                     "name": "",
                     "id": "a94bf242-a035-4107-8a72-0d1e51e3620d",
-                    "path": "<Keyboard>/4",
+                    "path": "<HID::Logitech Logitech Dual Action>/button4",
                     "interactions": "",
                     "processors": "Scale(factor=4)",
                     "groups": ";Touch",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3ea40d7-71e6-4add-b01f-a9a2c19b658f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93ea4140-4496-4109-9912-0360a67325d6",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1cf994bb-bd8e-4fcd-b4e1-473308e4d24f",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b68fce6d-60ab-421a-b8fb-8a2933da81f5",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "Scale(factor=4)",
+                    "groups": "",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -380,6 +402,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Flip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30338c7f-19e3-4090-b9e5-8703460bc27a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fc2a6aa-6808-4cda-897f-ee10cf897438",
+                    "path": "<HID::Logitech Logitech Dual Action>/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

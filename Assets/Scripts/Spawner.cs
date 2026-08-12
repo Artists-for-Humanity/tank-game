@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Annotations;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 [Serializable]
@@ -14,8 +8,6 @@ public class EnemySpawnType
     [NonSerialized]
     public int count = 0;
     public int maxCount;
-    public float rarity;
-    public int spawnsAfterWave = 0;
 }
 
 public class Spawner : MonoBehaviour
@@ -24,6 +16,7 @@ public class Spawner : MonoBehaviour
     private float timer = 0.0f;
     public float enemySpawnInterval = 1.0f;
     public GameObject[] enemySpawnPositions;
+
 
     private GameObject player;
 
@@ -94,7 +87,7 @@ public class Spawner : MonoBehaviour
             }
             else
             {
-                TrySpawnEnemy(enemySpawnTypes[currentEnemySpawning]);
+                TrySpawnEnemy(enemySpawnTypes[currentEnemySpawning], currentEnemySpawning == 4);
                 amount--;
             }
         }
@@ -127,15 +120,26 @@ public class Spawner : MonoBehaviour
 
     }
 
-    bool TrySpawnEnemy(EnemySpawnType enemySpawnType)
+    bool TrySpawnEnemy(EnemySpawnType enemySpawnType, bool isWarship)
     {
         if (enemySpawnType.count >= enemySpawnType.maxCount) { return false; }
 
         enemySpawnType.count++;
 
-        int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
 
-        GameObject newEnemy = Instantiate(enemySpawnType.prefab, enemySpawnPositions[randomInteger].transform.position, Quaternion.identity);
+        if (isWarship)
+        {
+            print("ee");
+            Transform seaPositions = GameObject.Find("SeaPositions").transform;
+
+            int randomInteger = UnityEngine.Random.Range(0, seaPositions.childCount - 1);
+            GameObject newEnemy = Instantiate(enemySpawnType.prefab, seaPositions.GetChild(randomInteger).transform.position, Quaternion.identity);
+        }
+        else
+        {
+            int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
+            GameObject newEnemy = Instantiate(enemySpawnType.prefab, enemySpawnPositions[randomInteger].transform.position, Quaternion.identity);
+        }
 
         return true;
     }

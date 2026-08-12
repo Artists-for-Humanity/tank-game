@@ -1,13 +1,13 @@
-using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class EnemyAI : Tank
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private NavMeshAgent agent;
     public GameObject follow;
+    public GameObject target;
     
     public float experience = 1f;
 
@@ -43,6 +43,8 @@ public class EnemyAI : Tank
             LevelManager.Instance.AddExperience(experience);
         };
 
+        target = GameObject.FindGameObjectWithTag("Player");
+
     }
     protected virtual void UpdateFollow()
     {
@@ -61,6 +63,7 @@ public class EnemyAI : Tank
         {
             timer = 0.0f;
             agent.SetDestination(follow.transform.position);
+            
         }
         
         Suspension suspension = GetComponent<Suspension>();
@@ -82,15 +85,15 @@ public class EnemyAI : Tank
             suspension.rollResistance = 10.0f;
         }
 
-        Vector3 directionToPlayer = (follow.transform.position - transform.position).normalized;
+        Vector3 directionToPlayer = (target.transform.position - transform.position).normalized;
 
         if (attackTimer >= weaponSlots[0].weaponUpgrade.firerate * weaponStatMultipiers.firerate)
         {
             attackTimer = 0.0f;
 
-            ShootGun(follow.transform.position, 1 << gameObject.layer);
+            ShootGun(target.transform.position, 1 << gameObject.layer);
         }
 
-        PointGun((follow.transform.position - transform.position).normalized);
+        PointGun((target.transform.position - transform.position).normalized);
     }
 }

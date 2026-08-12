@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Heavy
   m_EditorClassIdentifier: 
   sidewaysFriction: 1
-  speed: 2.5
-  health: 500
+  speed: 3.5
+  health: 250
   vehicleMesh: {fileID: -5495902117074765545, guid: 6d802374a184244839a03a3e95feab87, type: 3}
   vehicleMaterial: {fileID: 2100000, guid: c8491544431b34af8910bb4614def868, type: 2}
   positionOffset: {x: 0, y: -0.88, z: 0.79}

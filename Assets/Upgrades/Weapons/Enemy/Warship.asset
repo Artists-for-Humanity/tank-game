@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warship
   m_EditorClassIdentifier: 
   firerate: 3
-  bulletDamage: 50
+  bulletDamage: 25
   bulletSpeed: 300
   bulletSpread: 0.01
   bulletLifetime: 3
@@ -21,7 +21,7 @@ MonoBehaviour:
   penetration: 1
   weaponMesh: {fileID: 4493585093827132993, guid: 0a56b1c7d035347ad8eec6f0a48f46bd, type: 3}
   weaponMaterial: {fileID: 2100000, guid: e31f32e4ca38541ea88ceb5c7a909f2c, type: 2}
-  projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
+  projectile: {fileID: 4820250628266029487, guid: 75cc37a06971f42e0ac481e03bad1f22, type: 3}
   positionOffset: {x: 0, y: 7.76, z: 3.98}
   rotationOffset: {x: 270, y: 180, z: 0}
   scale: {x: 9, y: 54, z: 14}

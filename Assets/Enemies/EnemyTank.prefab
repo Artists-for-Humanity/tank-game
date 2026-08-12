@@ -443,7 +443,7 @@ MonoBehaviour:
     health: 1
     vehicleSpeed: 1
   weaponStatMultipiers:
-    bulletDamage: 0.01
+    bulletDamage: 0.005
     bulletSpeed: 0.25
     firerate: 0.5
     bulletLifetime: 1
@@ -453,4 +453,5 @@ MonoBehaviour:
     health: 100
     vehicleSpeed: 100
   follow: {fileID: 0}
-  experience: 100
+  target: {fileID: 0}
+  experience: 200

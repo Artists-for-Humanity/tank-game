@@ -1,9 +1,6 @@
-using System.Diagnostics;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
+
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class HelicopterAI : MonoBehaviour
 {

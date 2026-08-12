@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TankGame.Events;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 public class StatBar : MonoBehaviour
 {
     private Button upgradeButton;
@@ -40,7 +39,7 @@ public class StatBar : MonoBehaviour
             return;
         }
         LevelManager.Instance.DecrementStatPoints();
-        
+
         float oldValue = value;
         float newValue = math.clamp(value + 1.0f, 0f, maxValue);
 

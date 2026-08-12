@@ -1,15 +1,5 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using System.Linq;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering.Analytics;
-using System;
 using TankGame.Events;
-using System.Diagnostics;
-using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 
 public class Projectile : MonoBehaviour
 {
@@ -87,7 +77,10 @@ public class Projectile : MonoBehaviour
         
         foreach (RaycastHit hit in hits)
         {   
-            
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Border"))
+            {
+                continue;
+            }
 
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
             {

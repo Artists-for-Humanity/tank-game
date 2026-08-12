@@ -1,9 +1,5 @@
-using System;
-using System.Data;
-using Unity.Mathematics;
-using UnityEditor.SearchService;
+
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
@@ -16,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private InputAction openMenuAction;
+    private InputAction openMainMenuAction;
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
@@ -40,6 +37,7 @@ public class GameManager : MonoBehaviour
     void InitializeGame()
     {
         openMenuAction = InputSystem.actions.FindAction("OpenStats");
+        openMainMenuAction = InputSystem.actions.FindAction("Menu");
 
         player = GameObject.FindGameObjectWithTag("Player");
         
@@ -78,6 +76,13 @@ public class GameManager : MonoBehaviour
         if (openMenuAction.WasPressedThisFrame())
         {
             UIManager.ToggleStatUI();
+        }
+
+        if (openMainMenuAction.WasPressedThisFrame())
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            SceneManager.LoadScene(0);
         }
     }
 

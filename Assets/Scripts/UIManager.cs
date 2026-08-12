@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +31,7 @@ public static class UIManager
             uContainer.GetComponent<RectTransform>().LeanMoveY(-80f, 0.25f);
         } else
         {
-            uContainer.GetComponent<RectTransform>().LeanMoveY(300f, 0.25f);
+            uContainer.GetComponent<RectTransform>().LeanMoveY(1000f, 0.25f);
         }
     }
 
@@ -46,7 +45,7 @@ public static class UIManager
             uContainer.GetComponent<RectTransform>().LeanMoveY(-80f, 0.25f);
         } else
         {
-            uContainer.GetComponent<RectTransform>().LeanMoveY(300f, 0.25f);
+            uContainer.GetComponent<RectTransform>().LeanMoveY(1000f, 0.25f);
         }
     }
 
@@ -61,7 +60,7 @@ public static class UIManager
             sBackground.transform.LeanMoveX(10f, 0.25f);
         } else
         {
-            sBackground.transform.LeanMoveX(-500f, 0.25f);
+            sBackground.transform.LeanMoveX(-1000f, 0.25f);
         }
     }
     public static void ToggleStatUI()

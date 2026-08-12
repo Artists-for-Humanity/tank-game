@@ -1,13 +1,7 @@
 
-using System.Collections;
-using JetBrains.Annotations;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 
 public class CameraController : MonoBehaviour
