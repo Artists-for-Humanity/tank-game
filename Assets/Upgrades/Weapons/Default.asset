@@ -18,6 +18,7 @@ MonoBehaviour:
   bulletSpread: 0.005
   bulletLifetime: 3
   bulletsPerShot: 1
+  penetration: 1
   weaponMesh: {fileID: 4493585093827132993, guid: 1ad9690560b2a4580944315bb497ecc5, type: 3}
   weaponMaterial: {fileID: 2100000, guid: b3e338b13190f4c57905f265280b7dc3, type: 2}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}

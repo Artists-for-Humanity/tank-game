@@ -39,7 +39,7 @@ public class EnemyAI : Tank
         {
             Destroy(gameObject);
 
-            LevelManager.Instance.AddExperience(500f);
+            LevelManager.Instance.AddExperience(50000000f);
         };
 
     }

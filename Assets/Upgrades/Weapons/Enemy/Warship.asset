@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
   m_Name: Warship
   m_EditorClassIdentifier: 
-  firerate: 1
+  firerate: 3
   bulletDamage: 50
-  bulletSpeed: 500
+  bulletSpeed: 300
   bulletSpread: 0.01
   bulletLifetime: 3
   bulletsPerShot: 1
+  penetration: 1
   weaponMesh: {fileID: 4493585093827132993, guid: 0a56b1c7d035347ad8eec6f0a48f46bd, type: 3}
   weaponMaterial: {fileID: 2100000, guid: e31f32e4ca38541ea88ceb5c7a909f2c, type: 2}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}

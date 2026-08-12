@@ -593,8 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e403c2a547f2248d581d82807100de7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10000
-  maxHealth: 10000
+  health: 7500
+  maxHealth: 7500
   hasRegen: 0
   regenPerTick: 0
   regenTickInterval: 0.5
@@ -614,7 +614,7 @@ NavMeshAgent:
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 100
-  m_StoppingDistance: 50
+  m_StoppingDistance: 200
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -647,7 +647,7 @@ MonoBehaviour:
   - {fileID: 1615107834609352350}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   helicopterWeaponStats:
-    bulletDamage: 0.1
+    bulletDamage: 1
     bulletSpeed: 500
     firerate: 0.25
     bulletLifetime: 5

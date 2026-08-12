@@ -10,6 +10,7 @@ public class WeaponUpgrade : ScriptableObject
     public float bulletSpread;
     public float bulletLifetime;
     public int bulletsPerShot;
+    public int penetration;
 
     public Mesh weaponMesh;
     public Material weaponMaterial;

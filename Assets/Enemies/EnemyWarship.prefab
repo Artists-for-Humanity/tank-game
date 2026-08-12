@@ -1151,7 +1151,7 @@ MonoBehaviour:
     health: 1
     vehicleSpeed: 1
   weaponStatMultipiers:
-    bulletDamage: 0.01
+    bulletDamage: 1
     bulletSpeed: 1
     firerate: 1
     bulletLifetime: 1

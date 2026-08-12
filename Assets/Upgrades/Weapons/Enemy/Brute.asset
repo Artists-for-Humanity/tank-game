@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Brute
   m_EditorClassIdentifier: 
   firerate: 0.5
-  bulletDamage: 50
-  bulletSpeed: 1000
+  bulletDamage: 0.5
+  bulletSpeed: 300
   bulletSpread: 0.02
   bulletLifetime: 3
   bulletsPerShot: 1
+  penetration: 1
   weaponMesh: {fileID: 4493585093827132993, guid: d9e3fd4776a4e40b79aa8d992b4b4307, type: 3}
   weaponMaterial: {fileID: 2100000, guid: 273ea68cc17d94f13ad35dcb46370637, type: 2}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}

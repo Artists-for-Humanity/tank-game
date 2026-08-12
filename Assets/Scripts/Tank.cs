@@ -135,7 +135,7 @@ public class Tank : MonoBehaviour
                     weaponSlot.weaponUpgrade.bulletLifetime     * weaponStatMultipiers.bulletLifetime, 
                     weaponSlot.weaponUpgrade.bulletSpread       * weaponStatMultipiers.bulletSpread,  
                     layerMask, 
-                    10
+                    weaponSlot.weaponUpgrade.penetration
                     );
 
             HashSet<HealthComponent> alreadyHit = new HashSet<HealthComponent>();
@@ -153,7 +153,6 @@ public class Tank : MonoBehaviour
                                 return;
                             }
                             enemyHealthComponent?.TakeDamage(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
-                            print(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
                         }
                     }
                 };

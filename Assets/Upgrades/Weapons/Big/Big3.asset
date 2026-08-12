@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Big3
   m_EditorClassIdentifier: 
   firerate: 1
-  bulletDamage: 50
+  bulletDamage: 100
   bulletSpeed: 600
-  bulletSpread: 0.05
+  bulletSpread: 0.02
   bulletLifetime: 1
-  bulletsPerShot: 8
+  bulletsPerShot: 6
+  penetration: 1
   weaponMesh: {fileID: -1550514412580984892, guid: 8bcb8adb91ea64683b3ca94351359f3b, type: 3}
   weaponMaterial: {fileID: 2100000, guid: a0cc7d575d9db4a99a110fa93583a927, type: 2}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
   m_Name: Rail4
   m_EditorClassIdentifier: 
-  firerate: 2.5
+  firerate: 2
   bulletDamage: 1000
   bulletSpeed: 10000
   bulletSpread: 0
   bulletLifetime: 1
   bulletsPerShot: 1
+  penetration: 5
   weaponMesh: {fileID: -8678823145569952518, guid: 790345f54f76a45aab4d93e78eb7f9bf, type: 3}
   weaponMaterial: {fileID: 2100000, guid: aa4573e039dbf41a5842e476636ffe20, type: 2}
   projectile: {fileID: 2097542778041987086, guid: 3e18c7f1ac7234e7b8215ebe4461f2c8, type: 3}

@@ -25,7 +25,9 @@ public class CameraController : MonoBehaviour
     public float zoomSensitivity = 1.0f;
     private float zoom = 10.0f;
 
+    [SerializeField]
     private float scopeFOV;
+    [SerializeField]
     private float baseFOV;
     public UnityEngine.UI.Image crosshair;
 
@@ -55,10 +57,10 @@ public class CameraController : MonoBehaviour
             else if (camera.fieldOfView == scopeFOV)
             {
                 LeanTween.value(gameObject, camera.fieldOfView, baseFOV, 0.25f)
-                                .setOnUpdate((float value) =>
-                                {
-camera.fieldOfView = value;
-                                });
+                .setOnUpdate((float value) =>
+                {
+                    camera.fieldOfView = value;
+                });
             }
         };
     }
@@ -68,17 +70,22 @@ camera.fieldOfView = value;
     {
         if (target == null) { return; }
 
+        Camera camera = GetComponent<Camera>();
+
+        
         if (UnityEngine.Cursor.lockState == CursorLockMode.Locked)
         {
-            cameraRotationY += Input.mousePositionDelta.x * Time.deltaTime * sensitivity;
-            cameraRotationX += -Input.mousePositionDelta.y * Time.deltaTime * sensitivity;
+            float scopeSensitivity = camera.fieldOfView / baseFOV;
+
+            cameraRotationY += Input.mousePositionDelta.x * Time.deltaTime * sensitivity * scopeSensitivity;
+            cameraRotationX += -Input.mousePositionDelta.y * Time.deltaTime * sensitivity * scopeSensitivity;
 
 
             float moveDirectionX = turnCameraControllerXAction.ReadValue<float>();
             float moveDirectionY = turnCameraControllerYAction.ReadValue<float>();
 
-            cameraRotationY += moveDirectionX * Time.deltaTime * sensitivity;
-            cameraRotationX -= moveDirectionY * Time.deltaTime * sensitivity;
+            cameraRotationY += moveDirectionX * Time.deltaTime * sensitivity * scopeSensitivity;
+            cameraRotationX -= moveDirectionY * Time.deltaTime * sensitivity * scopeSensitivity;
         }
 
 

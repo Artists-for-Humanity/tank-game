@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     private float playerLevel = 0.0f;
     private float playerExperience = 0.0f;
 
-    private const float experienceExponentRate = 0.005f;
+    private const float experienceExponentRate = 0.001f;
     private const float experienceLinearRate = 100f;
 
     private GameObject UpgradeUI;
@@ -102,7 +102,7 @@ public class LevelManager : MonoBehaviour
         {
             if (playerLevel == 5 && !upgradeLocked)
             {
-                upgradeLocked = true;
+                
                 UIManager.SetUpgradeUIEnabled(true);
                 
                 Action<InputAction.CallbackContext> func = null;
@@ -126,17 +126,18 @@ public class LevelManager : MonoBehaviour
                     }
 
                     UIManager.SetUpgradeUIEnabled(false);
-                    currentUpgrade = (int)playerLevel / 5 - 1;
+                    currentUpgrade = Mathf.Min((int)playerLevel / 5 - 1, 3);
                     player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
 
                     upgradeSelectAction.started -= func;
+                    upgradeLocked = true;
                 };
 
                 upgradeSelectAction.started += func;
             }
-            else if (playerLevel % 10f == 0f && upgradeLocked)
+            else if (playerLevel % 5f == 0f && upgradeLocked)
             {
-                currentUpgrade = (int)playerLevel / 5 - 1;
+                currentUpgrade = Mathf.Min((int)playerLevel / 5 - 1, 3);
                 player.GetComponent<PlayerController>().LoadWeapon(player.GetComponent<PlayerController>().weaponSlots[0], weaponUpgradeBranch[currentUpgrade]);
             }
         };
@@ -175,13 +176,14 @@ public class LevelManager : MonoBehaviour
         playerExperience += experience;
 
         float levelUpRequirement = GetPlayerLevelUpRequirement(playerLevel);
-
-        if (playerExperience >= levelUpRequirement)
+        
+        while (playerExperience >= levelUpRequirement)
         {
-            playerExperience = 0.0f;
-            playerLevel += 1.0f;
-
-            onLevelUp?.Invoke();
+            
+                playerExperience -= levelUpRequirement;
+                playerLevel += 1.0f;
+                levelUpRequirement = GetPlayerLevelUpRequirement(playerLevel);
+                onLevelUp?.Invoke();
         }
 
         UIManager.UpdateExperienceBar(playerExperience / levelUpRequirement, playerLevel);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sidewaysFriction: 1
   speed: 2
-  health: 5000
+  health: 15000
   vehicleMesh: {fileID: -5053925668127403250, guid: 7110a098427a6428eb778a2d9e50cf3a, type: 3}
   vehicleMaterial: {fileID: 2100000, guid: 28073dd92058949a1bb294960437937a, type: 2}
   positionOffset: {x: 0, y: 3.1400003, z: -1.7179998}

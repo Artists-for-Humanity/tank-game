@@ -56,7 +56,7 @@ public class HelicopterAI : MonoBehaviour
         {
             Destroy(gameObject);
 
-            LevelManager.Instance.AddExperience(500f);
+            LevelManager.Instance.AddExperience(1000f);
         };
     }
 

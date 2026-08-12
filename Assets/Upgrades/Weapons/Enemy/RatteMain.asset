@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: RatteMain
   m_EditorClassIdentifier: 
   firerate: 0.5
-  bulletDamage: 50
-  bulletSpeed: 1000
+  bulletDamage: 0.5
+  bulletSpeed: 300
   bulletSpread: 0.02
   bulletLifetime: 3
   bulletsPerShot: 1
+  penetration: 1
   weaponMesh: {fileID: 4493585093827132993, guid: 331d8aebc5e2b457c827452665c47d4f, type: 3}
   weaponMaterial: {fileID: 2100000, guid: 28073dd92058949a1bb294960437937a, type: 2}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}

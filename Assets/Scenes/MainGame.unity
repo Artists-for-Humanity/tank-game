@@ -2176,6 +2176,8 @@ MonoBehaviour:
   cameraYOffset: 5
   sensitivity: 1
   zoomSensitivity: 5
+  scopeFOV: 10
+  baseFOV: 60
   crosshair: {fileID: 489828821}
 --- !u!1 &354686532
 GameObject:
@@ -10559,11 +10561,11 @@ MonoBehaviour:
     spawnsAfterWave: 10
   - prefab: {fileID: 8247867217570180762, guid: 7cfabbdeb751b4fa9a36e293615940ab, type: 3}
     maxCount: 5
-    rarity: 1
+    rarity: 0.01
     spawnsAfterWave: 15
   - prefab: {fileID: 7056281243981562953, guid: 2f9a94afd5b2a7f4cb3603fc2cb96e90, type: 3}
     maxCount: 1
-    rarity: 1
+    rarity: 0.01
     spawnsAfterWave: 20
   waveLengthSeconds: 30
 --- !u!4 &1994885087
