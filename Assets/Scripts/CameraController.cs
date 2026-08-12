@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float baseFOV;
     public UnityEngine.UI.Image crosshair;
+    Camera cameraJohn;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,26 +41,27 @@ public class CameraController : MonoBehaviour
         turnCameraControllerXAction = InputSystem.actions.FindAction("TurnCameraControllerX");
         turnCameraControllerYAction = InputSystem.actions.FindAction("TurnCameraControllerY");
         zoomCameraAction = InputSystem.actions.FindAction("ZoomCamera");
-        Camera camera = GetComponent<Camera>();
+        cameraJohn = GetComponent<Camera>();
+        cameraJohn.fieldOfView = baseFOV;
+        turnCameraAction.RemoveAllBindingOverrides();
 
-        camera.fieldOfView = baseFOV;
 
         turnCameraAction.started += (InputAction.CallbackContext callbackContext) =>
         {
-            if (camera.fieldOfView == baseFOV)
+            if (cameraJohn.fieldOfView == baseFOV)
             {
-                LeanTween.value(gameObject, camera.fieldOfView, scopeFOV, 0.25f)
+                LeanTween.value(gameObject, cameraJohn.fieldOfView, scopeFOV, 0.25f)
                 .setOnUpdate((float value) =>
                 {
-                    camera.fieldOfView = value;
+                    cameraJohn.fieldOfView = value;
                 });
             }
-            else if (camera.fieldOfView == scopeFOV)
+            else if (cameraJohn.fieldOfView == scopeFOV)
             {
-                LeanTween.value(gameObject, camera.fieldOfView, baseFOV, 0.25f)
+                LeanTween.value(gameObject, cameraJohn.fieldOfView, baseFOV, 0.25f)
                 .setOnUpdate((float value) =>
                 {
-                    camera.fieldOfView = value;
+                    cameraJohn.fieldOfView = value;
                 });
             }
         };
@@ -70,12 +72,10 @@ public class CameraController : MonoBehaviour
     {
         if (target == null) { return; }
 
-        Camera camera = GetComponent<Camera>();
-
         
         if (UnityEngine.Cursor.lockState == CursorLockMode.Locked)
         {
-            float scopeSensitivity = camera.fieldOfView / baseFOV;
+            float scopeSensitivity = cameraJohn.fieldOfView / baseFOV;
 
             cameraRotationY += Input.mousePositionDelta.x * Time.deltaTime * sensitivity * scopeSensitivity;
             cameraRotationX += -Input.mousePositionDelta.y * Time.deltaTime * sensitivity * scopeSensitivity;

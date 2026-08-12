@@ -28,6 +28,20 @@ public static class UIManager
         }
     }
 
+    public static void SetVehicleUpgradeUIEnabled(bool enabled)
+    {
+        GameObject upgradeUI = GameObject.Find("UpgradeUI");
+        GameObject uContainer = upgradeUI.transform.Find("VehicleUpgradeContainer").gameObject;
+       
+        if (enabled)
+        {
+            uContainer.GetComponent<RectTransform>().LeanMoveY(-80f, 0.25f);
+        } else
+        {
+            uContainer.GetComponent<RectTransform>().LeanMoveY(300f, 0.25f);
+        }
+    }
+
     public static void SetStatUIEnabled(bool enabled)
     {
         upgradeUIEnabled = enabled;

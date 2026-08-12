@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 [Serializable]
@@ -26,7 +28,6 @@ public class Spawner : MonoBehaviour
     private GameObject player;
 
     private int wave = 1;
-    private int enemiesLeft;
     private Action<int> onWaveStarted;
     private Action<int> onWaveEnded;
 
@@ -35,7 +36,8 @@ public class Spawner : MonoBehaviour
 
     public float waveLengthSeconds = 1f;
     private float waveEndTimer = 0f;
-
+    private int currentEnemySpawning = 0;
+    int amount = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -43,28 +45,57 @@ public class Spawner : MonoBehaviour
         onWaveEnded = OnWaveEnded;
         onWaveStarted = OnWaveStarted;
 
-        enemiesLeft = CalculateNumEnemies(wave);
-
         player = GameObject.FindGameObjectWithTag("Player");
+        amount = wave * 2;
     }
 
-    int CalculateNumEnemies(int wave)
+    int GetTotalEnemies(int wave)
     {
-        return (wave) * 2;
+        return wave * 2 + wave / 5 + wave / 15 + wave / 20 + wave / 40;
     }
-
-
     void Update()
     {
         timer += Time.deltaTime;
         waveEndTimer += Time.deltaTime;
 
-        if (timer > enemySpawnInterval && enemiesLeft >= 0)
+
+        if (timer > enemySpawnInterval && currentEnemySpawning != -1)
         {
             timer = 0f;
-            if (TrySpawnEnemy(GetNextEnemy()))
+
+            if (amount <= 0)
             {
-                enemiesLeft--;
+                currentEnemySpawning++;
+                if (currentEnemySpawning >= enemySpawnTypes.Length)
+                {
+                    currentEnemySpawning = -1;
+                }
+
+                switch (currentEnemySpawning)
+                {
+                    case -1:
+                        break;
+                    case 0:
+                        amount = wave * 2;
+                        break;
+                    case 1:
+                        amount = wave / 5;
+                        break;
+                    case 2:
+                        amount = wave / 20;
+                        break;
+                    case 3:
+                        amount = wave / 15;
+                        break;
+                    case 4:
+                        amount = wave / 40;
+                        break;
+                }
+            }
+            else
+            {
+                TrySpawnEnemy(enemySpawnTypes[currentEnemySpawning]);
+                amount--;
             }
         }
 
@@ -75,43 +106,16 @@ public class Spawner : MonoBehaviour
             wave++;
             UIManager.UpdateWaveUI(wave);
 
-            enemiesLeft += CalculateNumEnemies(wave);
 
             onWaveEnded.Invoke(wave);
             onWaveStarted.Invoke(wave);
+
+            enemySpawnInterval = waveLengthSeconds * 0.33f / (float)GetTotalEnemies(wave);
+            currentEnemySpawning = 0;
+            amount = wave * 2;
         }
     }
 
-    EnemySpawnType GetNextEnemy()
-    {
-        float randomNum = UnityEngine.Random.Range(0f, 1f);
-        EnemySpawnType chosenType = enemySpawnTypes[0];
-        float lowest = math.INFINITY;
-
-        List<EnemySpawnType> possibleSpawns = new List<EnemySpawnType>();
-
-        foreach (EnemySpawnType spawn in enemySpawnTypes)
-        {
-            if (spawn.spawnsAfterWave <= wave && spawn.count < spawn.maxCount)
-            {
-                possibleSpawns.Add(spawn);
-            }
-        }
-
-
-        for (int i = 0; i < possibleSpawns.Count; i++)
-        {
-            EnemySpawnType enemySpawnType = possibleSpawns[i];
-
-            if (randomNum <= enemySpawnType.rarity && enemySpawnType.rarity <= lowest)
-            {
-                chosenType = enemySpawnType;
-                lowest = enemySpawnType.rarity;
-            }
-        }
-
-        return chosenType;
-    }
     // Update is called once per frame
     void OnWaveStarted(int wave)
     {

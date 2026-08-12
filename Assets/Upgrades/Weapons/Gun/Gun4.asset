@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dcb3f100ea427084cfca34d2c3bb0, type: 3}
   m_Name: Gun4
   m_EditorClassIdentifier: 
-  firerate: 0.2
+  firerate: 0.1
   bulletDamage: 50
   bulletSpeed: 1000
   bulletSpread: 0.02
   bulletLifetime: 3
-  bulletsPerShot: 4
+  bulletsPerShot: 2
   penetration: 1
   weaponMesh: {fileID: -5053925668127403250, guid: 405e94594876548e5be7246929e008e0, type: 3}
   weaponMaterial: {fileID: 2100000, guid: 46288950213de41b392f25d9ff65e756, type: 2}
