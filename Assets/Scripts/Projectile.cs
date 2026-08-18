@@ -86,6 +86,8 @@ public class Projectile : MonoBehaviour
             {
                 isHit = true;
                 Destroy(gameObject, 5f);
+
+                onHit?.Invoke(hit);
                 break;
             }
 

@@ -119,7 +119,8 @@ public class Tank : MonoBehaviour
         }
     }
 
-    protected void ShootGun(Vector3 to, LayerMask layerMask)
+    #nullable enable
+    protected void ShootGun(Vector3 to, LayerMask layerMask, Action<RaycastHit>? onHit = null)
     {
         foreach (WeaponSlot weaponSlot in weaponSlots)
         {

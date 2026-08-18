@@ -101,12 +101,16 @@ public static class UIManager
 
         GameObject reloadBar = crosshair.transform.Find("ReloadBar").gameObject;
         Slider reloadSlider = reloadBar.GetComponent<Slider>();
+        reloadSlider.value = 1f - percentage;
+    }
 
-        LeanTween.value(reloadBar, reloadSlider.value, 1f - percentage, 0.1f)
-            .setOnUpdate((float value) =>
-            {
-                reloadSlider.value = value;
-            });
+    public static void UpdateHitmarker()
+    {
+        GameObject combatUI = GameObject.Find("CombatUI");
+        GameObject crosshair = combatUI.transform.Find("Crosshair").gameObject;
+        GameObject hitmarker = crosshair.transform.Find("Hitmarker").gameObject;
+
+        
     }
 
     public static void SetGameOverUIEnabled(bool enabled)
