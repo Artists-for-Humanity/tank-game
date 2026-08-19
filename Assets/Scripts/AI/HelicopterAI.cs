@@ -29,6 +29,10 @@ public class HelicopterAI : MonoBehaviour
     [SerializeField]
     WeaponStats helicopterWeaponStats;
 
+
+    public AudioClip fireSound;
+    public AudioClip impactSound;
+
     public float experience;
     float attackTimer = 0f;
     
@@ -120,6 +124,17 @@ public class HelicopterAI : MonoBehaviour
     {
         foreach (GameObject shootPosition in shootPositions)
         {
+
+            AudioSource audioSource = AudioUtils.PlayClipAt(fireSound, transform.position);
+            audioSource.volume = 0.5f;
+            audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            audioSource.minDistance = 10f;
+            audioSource.maxDistance = 200f;
+
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.spatialBlend = 1;
+
+
             for (int i = 0; i < helicopterWeaponStats.bulletsPerShot; i++)
             {
                 GameObject bullet = Instantiate(projectile);
@@ -147,6 +162,15 @@ public class HelicopterAI : MonoBehaviour
                         {
                             enemyHealthComponent?.TakeDamage(helicopterWeaponStats.bulletDamage);
                         }
+
+                        AudioSource impactAudioSource = AudioUtils.PlayClipAt(impactSound, hit.point);
+                            impactAudioSource.volume = 0.5f;
+                            impactAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                            impactAudioSource.minDistance = 0f;
+                            impactAudioSource.maxDistance = 75f;
+
+                            impactAudioSource.rolloffMode = AudioRolloffMode.Linear;
+                            impactAudioSource.spatialBlend = 1;
                     }
                 };
             }

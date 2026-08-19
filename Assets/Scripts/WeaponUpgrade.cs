@@ -20,6 +20,8 @@ public class WeaponUpgrade : ScriptableObject
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
     public Vector3 scale = Vector3.one;
-
+    
+    public AudioClip fireSoundClip;
+    public AudioClip impactSoundClip;
 
 }

@@ -104,13 +104,13 @@ public static class UIManager
         reloadSlider.value = 1f - percentage;
     }
 
-    public static void UpdateHitmarker()
+    public static void SetHitmarkerEnabled(bool enabled)
     {
         GameObject combatUI = GameObject.Find("CombatUI");
         GameObject crosshair = combatUI.transform.Find("Crosshair").gameObject;
         GameObject hitmarker = crosshair.transform.Find("Hitmarker").gameObject;
 
-        
+        hitmarker.GetComponent<Image>().enabled = enabled;
     }
 
     public static void SetGameOverUIEnabled(bool enabled)

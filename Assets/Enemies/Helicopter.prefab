@@ -653,4 +653,6 @@ MonoBehaviour:
     bulletLifetime: 5
     bulletSpread: 0.05
     bulletsPerShot: 1
+  fireSound: {fileID: 8300000, guid: 5e2079cbda5219243823137233f5c804, type: 3}
+  impactSound: {fileID: 8300000, guid: a1a21ca27e766ad4c8b81d8a8f5b288b, type: 3}
   experience: 1000

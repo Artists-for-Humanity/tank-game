@@ -445,7 +445,7 @@ MonoBehaviour:
   weaponStatMultipiers:
     bulletDamage: 0.005
     bulletSpeed: 0.25
-    firerate: 0.5
+    firerate: 2
     bulletLifetime: 1
     bulletSpread: 1
     bulletsPerShot: 1

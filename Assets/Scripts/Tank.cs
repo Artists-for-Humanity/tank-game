@@ -122,8 +122,18 @@ public class Tank : MonoBehaviour
     #nullable enable
     protected void ShootGun(Vector3 to, LayerMask layerMask, Action<RaycastHit>? onHit = null)
     {
+        
         foreach (WeaponSlot weaponSlot in weaponSlots)
         {
+            AudioSource audioSource = AudioUtils.PlayClipAt(weaponSlot.weaponUpgrade.fireSoundClip, transform.position);
+            audioSource.volume = 0.5f;
+            audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            audioSource.minDistance = 10f;
+            audioSource.maxDistance = 200f;
+
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.spatialBlend = 1;
+
             for (int i = 0; i < weaponSlot.weaponUpgrade.bulletsPerShot; i++)
             {
                 GameObject bullet = Instantiate(weaponSlot.weaponUpgrade.projectile);
@@ -156,6 +166,29 @@ public class Tank : MonoBehaviour
                             }
                             enemyHealthComponent?.TakeDamage(weaponSlot.weaponUpgrade.bulletDamage * weaponStatMultipiers.bulletDamage);
                         }
+
+                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
+                        {
+                            AudioSource impactAudioSource = AudioUtils.PlayClipAt(weaponSlot.weaponUpgrade.impactSoundClip, hit.point);
+                            impactAudioSource.volume = 0.5f;
+                            impactAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                            impactAudioSource.minDistance = 0f;
+                            impactAudioSource.maxDistance = 75f;
+
+                            impactAudioSource.rolloffMode = AudioRolloffMode.Linear;
+                            impactAudioSource.spatialBlend = 1;
+                        }
+                        
+                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                        {
+                            AudioSource hitmarkerAudioSource = AudioUtils.PlayClipAt(GameManager.Instance.hitmarker, hit.point);
+                            hitmarkerAudioSource.volume = 0.5f;
+                            hitmarkerAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+
+                            GameManager.Instance.hitmarkerTimer = 0.1f;
+                        }
+
+
                     }
                 };
             }

@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    public AudioClip hitmarker;
+
+    public float hitmarkerTimer = 0f;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -53,12 +57,21 @@ public class GameManager : MonoBehaviour
         };
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
         if (player == null) { return; }
 
-
+        hitmarkerTimer -= Time.deltaTime;
+        if (hitmarkerTimer <= 0)
+        {
+            UIManager.SetHitmarkerEnabled(false);
+        } else
+        {
+            UIManager.SetHitmarkerEnabled(true);
+        }
 
 
         if (player.GetComponent<HealthComponent>().isDead)

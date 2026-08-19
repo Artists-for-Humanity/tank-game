@@ -25,3 +25,5 @@ MonoBehaviour:
   positionOffset: {x: -0.03, y: 0.7, z: 0.01}
   rotationOffset: {x: 0, y: 180, z: 0}
   scale: {x: 1, y: 1, z: 1}
+  fireSoundClip: {fileID: 8300000, guid: d78eb728c75a19f408da2e51ad0d8182, type: 3}
+  impactSoundClip: {fileID: 8300000, guid: e1434f99b11747e46babd130eee7c31a, type: 3}

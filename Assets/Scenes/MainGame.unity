@@ -10151,6 +10151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fd0e0b75ff3bb4eae1a2ef7a3cf1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitmarker: {fileID: 8300000, guid: 895e51fb332f467478f5344866edb7a2, type: 3}
+  hitmarkerTimer: 0
 --- !u!4 &1661384889
 Transform:
   m_ObjectHideFlags: 0
