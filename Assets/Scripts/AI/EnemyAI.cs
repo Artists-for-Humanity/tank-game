@@ -43,6 +43,8 @@ public class EnemyAI : Tank
             LevelManager.Instance.AddExperience(experience);
         };
 
+        healthComponent.maxHealth *= 1f + (float)(Spawner.Instance.wave / 10) * 0.2f;
+        healthComponent.health = healthComponent.maxHealth;
         target = GameObject.FindGameObjectWithTag("Player");
 
     }

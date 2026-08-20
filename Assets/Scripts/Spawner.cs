@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
 
     private GameObject player;
 
-    private int wave = 1;
+    public int wave = 1;
     private Action<int> onWaveStarted;
     private Action<int> onWaveEnded;
 
@@ -32,8 +32,24 @@ public class Spawner : MonoBehaviour
     private int currentEnemySpawning = 0;
     int amount = 0;
 
+    private static Spawner _instance;
+    public static Spawner Instance { get { return _instance; } }
+    
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         onWaveEnded = OnWaveEnded;
         onWaveStarted = OnWaveStarted;
@@ -94,11 +110,9 @@ public class Spawner : MonoBehaviour
 
         if (waveEndTimer > waveLengthSeconds)
         {
-            print("gooo");
             waveEndTimer = 0f;
             wave++;
             UIManager.UpdateWaveUI(wave);
-
 
             onWaveEnded.Invoke(wave);
             onWaveStarted.Invoke(wave);

@@ -127,7 +127,7 @@ public class Tank : MonoBehaviour
             audioSource.volume = 0.5f;
             audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
             audioSource.minDistance = 10f;
-            audioSource.maxDistance = 200f;
+            audioSource.maxDistance = 100f;
 
             audioSource.rolloffMode = AudioRolloffMode.Linear;
             audioSource.spatialBlend = 1;
@@ -168,7 +168,7 @@ public class Tank : MonoBehaviour
                         if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
                         {
                             AudioSource impactAudioSource = AudioUtils.PlayClipAt(weaponSlot.weaponUpgrade.impactSoundClip, hit.point);
-                            impactAudioSource.volume = 0.5f;
+                            impactAudioSource.volume = 0.2f;
                             impactAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
                             impactAudioSource.minDistance = 0f;
                             impactAudioSource.maxDistance = 75f;

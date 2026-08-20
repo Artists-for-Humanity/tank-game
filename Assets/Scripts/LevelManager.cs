@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     private const float experienceExponentRate = 0.001f;
     private const float experienceLinearRate = 100f;
 
+    
+
     private GameObject UpgradeUI;
     private StatBar healthStatBar;
     private StatBar bulletDamageStatBar;
@@ -32,15 +34,15 @@ public class LevelManager : MonoBehaviour
 
     public VehicleUpgrade[] vehicleUpgrades;
     public int currentUpgrade = 0;
-
-
-
-    private static LevelManager _instance;
-    public static LevelManager Instance { get { return _instance; } }
     private InputAction upgradeSelectAction;
 
 
     bool upgradeLocked = false;
+
+
+    private static LevelManager _instance;
+    public static LevelManager Instance { get { return _instance; } }
+    
 
     private void Awake()
     {

@@ -59,6 +59,9 @@ public class HelicopterAI : MonoBehaviour
 
             LevelManager.Instance.AddExperience(experience);
         };
+
+        healthComponent.maxHealth *= 1f + (float)(Spawner.Instance.wave / 10) * 0.2f;
+        healthComponent.health = healthComponent.maxHealth;
     }
 
     void Update()
@@ -129,7 +132,7 @@ public class HelicopterAI : MonoBehaviour
             audioSource.volume = 0.5f;
             audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
             audioSource.minDistance = 10f;
-            audioSource.maxDistance = 200f;
+            audioSource.maxDistance = 100f;
 
             audioSource.rolloffMode = AudioRolloffMode.Linear;
             audioSource.spatialBlend = 1;
@@ -164,7 +167,7 @@ public class HelicopterAI : MonoBehaviour
                         }
 
                         AudioSource impactAudioSource = AudioUtils.PlayClipAt(impactSound, hit.point);
-                            impactAudioSource.volume = 0.5f;
+                            impactAudioSource.volume = 0.2f;
                             impactAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
                             impactAudioSource.minDistance = 0f;
                             impactAudioSource.maxDistance = 75f;
