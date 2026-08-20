@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firerate: 1.5
   bulletDamage: 200
-  bulletSpeed: 10000
+  bulletSpeed: 2000
   bulletSpread: 0
   bulletLifetime: 1
   bulletsPerShot: 1

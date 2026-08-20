@@ -649,7 +649,7 @@ MonoBehaviour:
   helicopterWeaponStats:
     bulletDamage: 1
     bulletSpeed: 500
-    firerate: 0.25
+    firerate: 0.5
     bulletLifetime: 5
     bulletSpread: 0.05
     bulletsPerShot: 1
