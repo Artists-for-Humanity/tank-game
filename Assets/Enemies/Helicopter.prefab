@@ -593,8 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e403c2a547f2248d581d82807100de7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 7500
-  maxHealth: 7500
+  health: 2500
+  maxHealth: 2500
   hasRegen: 0
   regenPerTick: 0
   regenTickInterval: 0.5
@@ -647,8 +647,8 @@ MonoBehaviour:
   - {fileID: 1615107834609352350}
   projectile: {fileID: 4820250628266029487, guid: cf7aa3c0f123045c8b93b1d2c645c0fd, type: 3}
   helicopterWeaponStats:
-    bulletDamage: 1
-    bulletSpeed: 500
+    bulletDamage: 0.5
+    bulletSpeed: 300
     firerate: 0.5
     bulletLifetime: 5
     bulletSpread: 0.05

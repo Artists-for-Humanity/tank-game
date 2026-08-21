@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Flame4
   m_EditorClassIdentifier: 
   firerate: 0.1
-  bulletDamage: 20
-  bulletSpeed: 600
+  bulletDamage: 40
+  bulletSpeed: 850
   bulletSpread: 0.05
   bulletLifetime: 0.2
   bulletsPerShot: 4
-  penetration: 2
+  penetration: 5
   weaponMesh: {fileID: -8678823145569952518, guid: 46235839148cb4050af6bed5c3b42f5b, type: 3}
   weaponMaterial: {fileID: 2100000, guid: 48338f2242458426cbda3f84393c59af, type: 2}
   projectile: {fileID: 4820250628266029487, guid: 4256795fae3062b45a159200a37b4447, type: 3}

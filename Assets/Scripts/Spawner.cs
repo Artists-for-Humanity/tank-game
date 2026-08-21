@@ -60,7 +60,7 @@ public class Spawner : MonoBehaviour
 
     int GetTotalEnemies(int wave)
     {
-        return wave * 2 + wave / 5 + wave / 15 + wave / 20 + wave / 40;
+        return wave + wave / 5 + wave / 10 + wave / 15 + wave / 20;
     }
     void Update()
     {
@@ -85,19 +85,19 @@ public class Spawner : MonoBehaviour
                     case -1:
                         break;
                     case 0:
-                        amount = wave * 2;
+                        amount = wave;
                         break;
                     case 1:
                         amount = wave / 5;
                         break;
                     case 2:
-                        amount = wave / 20;
-                        break;
-                    case 3:
                         amount = wave / 15;
                         break;
+                    case 3:
+                        amount = wave / 10;
+                        break;
                     case 4:
-                        amount = wave / 40;
+                        amount = wave / 20;
                         break;
                 }
             }
@@ -140,20 +140,27 @@ public class Spawner : MonoBehaviour
 
         enemySpawnType.count++;
 
+        Vector3 spawnPosition = Vector3.zero;
+
 
         if (isWarship)
         {
-            print("ee");
             Transform seaPositions = GameObject.Find("SeaPositions").transform;
 
             int randomInteger = UnityEngine.Random.Range(0, seaPositions.childCount - 1);
-            GameObject newEnemy = Instantiate(enemySpawnType.prefab, seaPositions.GetChild(randomInteger).transform.position, Quaternion.identity);
+            spawnPosition = seaPositions.GetChild(randomInteger).transform.position;
         }
         else
         {
             int randomInteger = UnityEngine.Random.Range(0, enemySpawnPositions.Length - 1);
-            GameObject newEnemy = Instantiate(enemySpawnType.prefab, enemySpawnPositions[randomInteger].transform.position, Quaternion.identity);
+            spawnPosition = enemySpawnPositions[randomInteger].transform.position;
         }
+
+        GameObject newEnemy = Instantiate(enemySpawnType.prefab, spawnPosition, Quaternion.identity);
+        newEnemy.GetComponent<HealthComponent>().onDied += () =>
+        {
+            enemySpawnType.count--;
+        };
 
         return true;
     }
